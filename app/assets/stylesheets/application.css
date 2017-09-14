@@ -13,3 +13,144 @@
  *= require_tree .
  *= require_self
  */
+@import url('https://fonts.googleapis.com/css?family=Forum');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+ body {
+   background-image: url('/images/stardust.png');
+   /*color: #CCCCCC;*/
+   color: #FFFFFF;
+   /*background: #d0dcc4;*/
+   background: #ea5a64;
+   font-family: 'Forum', cursive;
+   font-size: 20px;
+   margin: 0 auto;
+ }
+
+ div {
+   /*background: #218396;
+   border-width: 5px;
+   border-style: solid;
+   border-color: #29b2bd;
+   border-radius: 25px;
+   padding: 20px;
+   margin: 5px;*/
+
+
+   /*width: 200px;
+   height: 150px; */
+ }
+
+h1, h2, h3, h4 {
+  color: #f2c295;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  margin: 10px;
+  /*color: #ea5a64;*/
+}
+
+a,
+a:visited {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.link {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.top-bar-section {
+  display: inline-block;
+  float: right;
+  margin: -10px;
+}
+
+.top-bar-title {
+  display: inline-block;
+  float: left;
+  margin-top: -15px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.top-bar {
+  background-color: #3C3C3C;
+  padding: 25px;
+  border-bottom: 2px #FFFFFF solid;
+}
+
+.bottom-bar {
+  background-color: #3C3C3C;
+  padding: 25px;
+  border-top: 2px #FFFFFF solid;
+}
+
+.bottom-bar-section {
+  display: inline-block;
+  float: right;
+  margin-top: -5px;
+}
+
+.title {
+  background: #3C3C3C;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #FFFFFF;
+  border-radius: 10px;
+  padding-left: 10px;
+  margin: 12px;
+  /*background: #FFFFFF;*/
+}
+
+.tile {
+  background: #218396;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #29b2bd;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 5px;
+}
+
+.tile:hover {
+  background: #3C3C3C;
+}
+
+.container {
+  background: #218396;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #29b2bd;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.player-container {
+  background: #218396;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #29b2bd;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 5px;
+}
+
+.player-button{
+
+}
+
+.link {
+  padding: 5px;
+  border:1px solid black;
+  border-radius:8px;
+  background-color: #494949;
+  /*background:-webkit-linear-gradient(top,  #494949 0%,#707070 100%);*/
+  z-index:2;
+}
+
+.link:hover {
+  background-color: #707070;
+}
