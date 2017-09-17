@@ -26,7 +26,7 @@ class HomeShowContainer extends Component {
         <h1>Welcome back</h1>
         <h1>{this.state.user.first_name}</h1>
         <br />
-        <h3>We&#39;ve curated a podcast list for Lunchtime.</h3>
+        <h3>We&#39;ve curated a podcast list for .</h3>
         <br />
         <h3>Here are shorter episodes:</h3>
         <br />

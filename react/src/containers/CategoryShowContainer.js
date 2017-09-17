@@ -19,19 +19,29 @@ class CategoryShowContainer extends Component {
     .then(responseData => {
       this.setState({
         category: responseData.category,
-        podcasts: responseData.category.podcasts
+        podcasts: responseData.podcasts
       })
     })
+    // fetch(`https://itunes.apple.com/search?term=podcast&genreId=1402&limit=200`)
+    // .then(response => response.json())
+    // .then(responseData => {
+    // })
   }
 
   render() {
     let podcasts = this.state.podcasts.map(podcast => {
+      // let podcast_string = <ul><li>Artist Name: {podcast.artist_name}</li><li>Podcast Name: {podcast.collection_name}</li></ul>
       return(
+        // podcast_string
         <PodcastTile
-          key={podcast.id}
-          id={podcast.id}
-          name={podcast.name}
+          artistName={podcast.artist_name}
+          collectionName={podcast.collection_name}
         />
+        // <PodcastTile
+        //   key={podcast.id}
+        //   id={podcast.id}
+        //   name={podcast.name}
+        // />
       )
     })
     return(

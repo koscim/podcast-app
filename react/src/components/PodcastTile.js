@@ -5,7 +5,8 @@ const PodcastTile = props => {
   return (
     <Link to={`/podcasts/${props.id}`}>
       <div className='tile'>
-        <p>{props.name}</p>
+        <p>{props.artistName}</p>
+        <p>{props.collectionName}</p>
       </div>
     </Link>
   )

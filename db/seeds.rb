@@ -10,9 +10,17 @@ Episode.delete_all
 Category.delete_all
 Categorization.delete_all
 
-8.times do
-  name = Faker::Book.unique.genre
-  Category.create(name: name)
+# 8.times do
+#   name = Faker::Book.unique.genre
+#   Category.create(name: name)
+# end
+
+GENRES = ["Arts", "Comedy", "Education", "Kids & Family", "Health", "TV & Film", "Music", "News & Politics", "Religion & Spirituality",
+  "Science & Medicine", "Sports & Recreation", "Technology", "Business", "Game & Hobbies", "Society & Culture", "Government & Organizations"]
+GENRE_IDS = ["1301", "1303", "1304", "1305", "1307", "1309", "1310", "1311", "1314", "1315", "1316", "1318", "1321", "1323", "1324", "1325"]
+
+GENRES.each_with_index do |genre, index|
+  Category.create(name: genre, genre_id: GENRE_IDS[index])
 end
 
 100.times do

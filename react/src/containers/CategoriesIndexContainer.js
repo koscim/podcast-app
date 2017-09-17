@@ -41,7 +41,7 @@ class CategoriesIndexContainer extends Component {
     })
     return (
       <div className='container'>
-        Categories!!!
+        <h2>Genres</h2>
         {categories}
       </div>
     )
