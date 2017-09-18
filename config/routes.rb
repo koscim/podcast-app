@@ -13,10 +13,12 @@ Rails.application.routes.draw do
 
   get "api/v1/podcasts/:id/recommend", to: 'api/v1/podcasts#recommend'
 
+  get "/search", to: 'static_pages#index'
   resources :podcasts, to: 'static_pages#index'
   resources :categories, to: 'static_pages#index'
   # resources :episodes, to: 'static_pages#index'
-  resources :users, to: 'static_pages#index'
+  # resources :users, to: 'static_pages#index'
+
 
   namespace :api do
     namespace :v1 do

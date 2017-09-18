@@ -10,6 +10,16 @@ class HomeShowContainer extends Component {
   }
 
   componentDidMount() {
+    fetch(`/api/v1/users/`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+    .then(responseBody => {
+      this.setState({
+        user: responseBody.current_user
+      })
+    })
+    .catch((thing) => console.log("so sad"))
+    debugger;
     let userId = this.props.params.id;
     fetch(`/api/v1/users/${userId}`)
     .then(response => response.json())

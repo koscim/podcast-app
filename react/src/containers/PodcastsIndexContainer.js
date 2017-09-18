@@ -149,20 +149,23 @@ class PodcastsIndexContainer extends Component {
       <div className='container'>
         <h1>All Podcasts!!!</h1>
         {podcasts}
-        <ReactPlayer
-          url={this.state.url}
-          playing={this.state.playing}
-          volume={this.state.volume}
-          muted={this.state.muted}
-          playbackRate={this.state.playbackRate}
-          onReady={() => console.log('onReady')}
-          onStart={() => console.log('onStart')}
-          onPlay={this.onPlay}
-          onPause={this.onPause}
-          onEnded={() => this.setState({ playing: false})}
-          onProgress={this.onProgress}
-          onDuration={duration => this.setState({ duration })}
-        />
+        <div className='player-wrapper'>
+          <ReactPlayer
+            className='react-player'
+            url={this.state.url}
+            playing={this.state.playing}
+            volume={this.state.volume}
+            muted={this.state.muted}
+            playbackRate={this.state.playbackRate}
+            onReady={() => console.log('onReady')}
+            onStart={() => console.log('onStart')}
+            onPlay={this.onPlay}
+            onPause={this.onPause}
+            onEnded={() => this.setState({ playing: false})}
+            onProgress={this.onProgress}
+            onDuration={duration => this.setState({ duration })}
+          />
+        </div>
           <h2>Controls</h2>
               <h3>Load</h3>
               {this.renderLoadButton("http://feeds.soundcloud.com/stream/273116676-nerd-cast-episode-6-comic-con-review-cpt-hydra-und-die-1.mp3", "Load Episode")}
