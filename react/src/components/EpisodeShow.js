@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory, Link } from 'react-router';
 import ReactPlayer from 'react-player';
 import Duration from '../components/Duration';
-import ProgressBar from 'react-player-controls';
+import { ProgressBar } from 'react-player-controls';
 
 class EpisodeShow extends Component {
   constructor(props) {
@@ -15,7 +15,9 @@ class EpisodeShow extends Component {
       loaded: 0,
       duration: 0,
       playbackRate: 1.0,
-      url: null
+      url: null,
+      isSeeking: false,
+      seekTime: 0,
     }
     this.playPause = this.playPause.bind(this)
     this.stop = this.stop.bind(this)
@@ -26,6 +28,22 @@ class EpisodeShow extends Component {
     this.renderLoadButton = this.renderLoadButton.bind(this)
     this.load = this.load.bind(this)
     this.handleOnChange = this.handleOnChange.bind(this)
+    this.handleSeek = this.handleSeek.bind(this)
+    this.handleSeekEnd = this.handleSeekEnd.bind(this)
+  }
+
+  handleSeek(time) {
+    this.setState({
+      isSeeking: true,
+      seekTime: time
+    })
+  }
+
+  handleSeekEnd(time) {
+    this.setState({
+      isSeeking: false,
+      seekTime: time
+    })
   }
 
   load(url){
@@ -73,9 +91,18 @@ class EpisodeShow extends Component {
   }
 
   render() {
-    let currentTime = <Duration seconds={this.state.duration * (this.state.played)} />
+    // let currentTime = <Duration seconds={this.state.duration * (this.state.played)} />
+    let progressBar = <ProgressBar
+      totalTime={this.state.duration}
+      currentTime={this.state.isSeeking ? this.state.seekTime : (this.state.duration * this.state.played)}
+      isSeekable={true}
+      onSeek={this.handleSeek}
+      onSeekStart={() => console.log('onSeekStart')}
+      onSeekEnd={this.handleSeekEnd}
+      onIntent={() => console.log('onIntent')}
+      // style={{color: 'white', height: '20px', width: '200px', display: 'inline-block', visibility: 'visible'}}
+    />
     return(
-
       <div className='container'>
         <h2>{this.props.name}</h2>
         <h3>Duration: {this.props.duration}</h3>
@@ -99,6 +126,12 @@ class EpisodeShow extends Component {
               onProgress={this.onProgress}
               onDuration={duration => this.setState({ duration })}
             />
+          </div>
+          <div className="myProgress">
+            <div className="myBar"></div>
+          </div>
+          <div className="progress">
+            {progressBar}
           </div>
           <table>
             <tr>

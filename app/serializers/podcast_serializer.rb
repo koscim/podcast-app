@@ -1,3 +1,3 @@
 class PodcastSerializer < ActiveModel::Serializer
-  attributes :id, :name, :episodes
+  attributes :id, :collectionId, :artistName, :collectionName, :artUrl, :description, :episodes
 end

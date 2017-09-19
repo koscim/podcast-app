@@ -31,17 +31,24 @@ ActiveRecord::Schema.define(version: 20170911002141) do
 
   create_table "episodes", force: :cascade do |t|
     t.string "name", null: false
-    t.string "duration", null: false
+    t.string "duration", default: ""
     t.string "feedUrl", null: false
     t.string "podcast_id", null: false
+    t.string "imageUrl", default: ""
+    t.text "description", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "podcasts", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "collectionId", null: false
+    t.string "artistName", null: false
+    t.string "collectionName", null: false
+    t.string "artUrl", null: false
+    t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["collectionId"], name: "index_podcasts_on_collectionId", unique: true
   end
 
   create_table "subscriptions", force: :cascade do |t|

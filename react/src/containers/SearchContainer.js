@@ -1,20 +1,75 @@
 import React, { Component } from 'react';
 import { browserHistory, Link } from 'react-router';
 import TextField from '../components/TextField';
+import SubscribePodcastTile from '../components/SubscribePodcastTile';
 
 class SearchContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       category: {},
-      podcasts: [],
+      podcasts: {
+        results: []
+      },
       search: "",
       searchCategory: false,
-      searchName: false
+      searchName: false,
+      user: {},
+      selectedId: null,
+      selectedDescription: "",
+      selectedEpisodes: []
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleCategoryCheckboxChange = this.handleCategoryCheckboxChange.bind(this)
     this.handleNameCheckboxChange = this.handleNameCheckboxChange.bind(this)
+    this.handleSearch = this.handleSearch.bind(this)
+    this.changeState = this.changeState.bind(this)
+    this.fetchDescription = this.fetchDescription.bind(this)
+    this.subscribePodcast = this.subscribePodcast.bind(this)
+  }
+
+  subscribePodcast(id, artUrl, artistName, collectionName, description, episodes){
+    let subscribePayload = {
+      id: id,
+      art_url: artUrl,
+      artist_name: artistName,
+      collection_name: collectionName,
+      description: description,
+      episodes: episodes
+    }
+    fetch(`api/v1/users/${this.state.user.id}/podcasts`, {
+      method: 'POST',
+      credentials: 'same-origin',
+      body: JSON.stringify(subscribePayload)
+    }).then(response => response.json())
+    .then(responseBody => {
+
+    })
+  }
+
+  fetchDescription(id){
+    fetch(`api/v1/users/${this.state.user.id}/fetch/${id}`, {
+       credentials: 'same-origin'
+    }).then(response => response.json())
+    .then(responseBody => {
+      // description = responseBody.description
+      // if(responseBody.description !== this.state.selectedDescription){
+      this.setState({ selectedId: id, selectedDescription: responseBody.description, selectedEpisodes: responseBody.episodes_data })
+      // }
+    })
+    .catch(error => {
+      this.setState({ selectedId: id, selectedDescription: "Error: Unreadable Feed" })
+    })
+    // debugger;
+  }
+
+  changeState(id){
+    if (id != this.state.selectedId) {
+      // this.setState({ selectedId: id })
+      this.fetchDescription(id)
+    } else {
+      this.setState({ selectedId: null })
+    }
   }
 
   handleInputChange(event){
@@ -46,29 +101,41 @@ class SearchContainer extends Component {
   handleSearch(event) {
     event.preventDefault()
     if(this.state.searchCategory){
-      fetch(`/api/v1/users/search_category`,{
+      // fetch(`/api/v1/users/search_category`,{
+      //   credentials: 'same-origin'
+      // })
+      // .then(response => {
+      //   if(response.ok) {
+      //     return response;
+      //   } else {
+      //     let errorMessage = `${response.status} (${response.statusText})`,
+      //       error = new Error(errorMessage);
+      //     throw(error);
+      //   }
+      // }).then(response => response.json())
+      // .then(responseBody => {
+      //   debugger;
+      // })
+    } else if(this.state.searchName){
+      fetch(`api/v1/users/${this.state.user.id}/search/${this.state.search}`, {
         credentials: 'same-origin'
-      })
-      .then(response => {
-        if(response.ok) {
-          return response;
-        } else {
-          let errorMessage = `${response.status} (${response.statusText})`,
-            error = new Error(errorMessage);
-          throw(error);
-        }
       }).then(response => response.json())
       .then(responseBody => {
-        debugger;
-      })
-    } else if(this.state.searchName){
-      fetch(`/ap1/v1/users/search_category`, {
-        credentials: 'same-origin'
+        this.setState({ podcasts: responseBody })
       })
     }
   }
 
   componentDidMount() {
+    fetch(`/api/v1/users/`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+    .then(responseBody => {
+      this.setState({
+        user: responseBody.current_user
+      })
+    })
+    .catch((thing) => console.log("so sad"))
     // let categoryId = this.props.params.id;
     // fetch(`/api/v1/categories/${categoryId}`)
     // .then(response => response.json())
@@ -85,11 +152,33 @@ class SearchContainer extends Component {
   }
 
   render() {
-    let podcasts = this.state.podcasts.map(podcast => {
+    let podcasts = this.state.podcasts["results"].map(podcast => {
+      let description;
+      let className;
+      if(this.state.selectedId == podcast.collectionId){
+        className = "fa fa-minus-square toggleBoxMinus";
+        // this.fetchDescription(podcast.collectionId)
+        description = this.state.selectedDescription
+        // description = "FETCHED";
+      } else {
+        className = "fa fa-plus-square toggleBoxPlus";
+        description = "";
+      }
       return(
-        <PodcastTile
-          artistName={podcast.artist_name}
-          collectionName={podcast.collection_name}
+        <SubscribePodcastTile
+          key={podcast.collectionId}
+          id={podcast.collectionId}
+          artistName={podcast.artistName}
+          collectionName={podcast.collectionName}
+          artUrl={podcast.artworkUrl600}
+          feedUrl={podcast.feedUrl}
+          genres={podcast.genres}
+          genreIds={podcast.genreIds}
+          className={className}
+          description={description}
+          setSelected={this.changeState}
+          episodes={this.state.selectedEpisodes}
+          subscribePodcast={this.subscribePodcast}
         />
       )
     })

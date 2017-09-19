@@ -11,8 +11,7 @@ Rails.application.routes.draw do
   #   resources :episodes, to: 'static_pages#index'
   # end
 
-  get "api/v1/podcasts/:id/recommend", to: 'api/v1/podcasts#recommend'
-
+  # get "api/v1/podcasts/:id/recommend", to: 'api/v1/podcasts#recommend'
   get "/search", to: 'static_pages#index'
   resources :podcasts, to: 'static_pages#index'
   resources :categories, to: 'static_pages#index'
@@ -29,7 +28,9 @@ Rails.application.routes.draw do
         resources :podcasts, only: [:index, :show]
       end
       resources :users, only: [:index, :show] do
-        resources :podcasts, only: [:index, :show]
+        get "/search/:name", to: 'users#search'
+        get "/fetch/:id", to: 'users#fetch'
+        resources :podcasts, only: [:index, :show, :create]
       end
     end
   end

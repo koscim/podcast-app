@@ -25,7 +25,7 @@ end
 
 100.times do
   name = Faker::Coffee.blend_name
-  podcast = Podcast.create(name: name)
+  podcast = Podcast.create(collection_id: Faker::Number.number(10), artist_name: name, collection_name: Faker::Coffee.variety, art_url: Faker::Placeholdit.image, description: Faker::Coffee.notes)
   20.times do
     name = Faker::Job.title
     duration = Faker::Number.number(2)

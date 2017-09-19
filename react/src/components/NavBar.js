@@ -10,7 +10,7 @@ const NavBar = props => {
         </div>
         <div className='top-bar-section'>
           <Link to='/' className='link'>Home</Link>
-          <Link to='/podcasts' className='link'>Podcasts</Link>
+          <Link to='/podcasts' className='link'>Subscriptions</Link>
           <Link to='/categories' className='link'>Categories</Link>
           <Link to='/search' className='link'>+</Link>
         </div>

@@ -141,13 +141,16 @@ class PodcastsIndexContainer extends Component {
         <PodcastTile
           key={podcast.id}
           id={podcast.id}
-          name={podcast.name}
+          artistName={podcast.artistName}
+          collectionName={podcast.collectionName}
+          artUrl={podcast.artUrl}
+          description={podcast.description}
         />
       )
     })
     return (
       <div className='container'>
-        <h1>All Podcasts!!!</h1>
+        <h1>Your Subscriptions</h1>
         {podcasts}
         <div className='player-wrapper'>
           <ReactPlayer

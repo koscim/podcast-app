@@ -40,6 +40,7 @@ class PodcastShowContainer extends Component {
           name={episode.name}
           duration={episode.duration}
           feedUrl={episode.feedUrl}
+          imageUrl={episode.imageUrl}
           podcast_id={episode.podcast_id}
         />
       )
