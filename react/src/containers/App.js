@@ -8,6 +8,7 @@ import CategoryShowContainer from './CategoryShowContainer';
 import NavBar from '../components/NavBar';
 import HomeShowContainer from'./HomeShowContainer';
 import SearchContainer from './SearchContainer';
+import DowntimesIndexContainer from './DowntimesIndexContainer';
 
 const App = (props) => {
   return (
@@ -20,6 +21,7 @@ const App = (props) => {
         <Route path="/podcasts/:id/episodes/:episode_id" component={EpisodeShowContainer} />
         <Route path="/categories" component={CategoriesIndexContainer} />
         <Route path="/categories/:id" component={CategoryShowContainer} />
+        <Route path="/downtimes" component={DowntimesIndexContainer} />
       </Route>
     </Router>
   );

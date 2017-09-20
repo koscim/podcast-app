@@ -18,6 +18,7 @@ class EpisodeShow extends Component {
       url: null,
       isSeeking: false,
       seekTime: 0,
+      seeking: false
     }
     this.playPause = this.playPause.bind(this)
     this.stop = this.stop.bind(this)
@@ -30,20 +31,35 @@ class EpisodeShow extends Component {
     this.handleOnChange = this.handleOnChange.bind(this)
     this.handleSeek = this.handleSeek.bind(this)
     this.handleSeekEnd = this.handleSeekEnd.bind(this)
+    this.onSeekMouseDown = this.onSeekMouseDown.bind(this)
+    this.onSeekChange = this.onSeekChange.bind(this)
+    this.onSeekMouseUp = this.onSeekMouseUp.bind(this)
+    this.setVolume = this.setVolume.bind(this)
+    this.ref = this.ref.bind(this)
   }
 
+  ref(player){
+    this.player = player
+  }
   handleSeek(time) {
     this.setState({
       isSeeking: true,
-      seekTime: time
+      seekTime: time,
+      played: time
     })
   }
 
   handleSeekEnd(time) {
     this.setState({
       isSeeking: false,
-      seekTime: time
+      seekTime: time,
+      played: time
     })
+  }
+
+  setVolume(event){
+    debugger;
+    this.setState({ volume: parseFloat(event.target.value) })
   }
 
   load(url){
@@ -55,7 +71,7 @@ class EpisodeShow extends Component {
   }
 
   playPause(){
-    this.setState({ playing: !this.state.playing })
+    this.setState({ url: this.props.feedUrl, playing: !this.state.playing })
   }
 
   stop(){
@@ -75,7 +91,9 @@ class EpisodeShow extends Component {
   }
 
   onProgress(state){
-    this.setState(state)
+    if(!this.state.seeking){
+      this.setState(state)
+    }
   }
 
   renderLoadButton(url,label){
@@ -90,16 +108,29 @@ class EpisodeShow extends Component {
     this.setState({ played: value })
   }
 
+  onSeekMouseDown(event){
+    this.setState({ seeking: true })
+  }
+
+  onSeekChange(event){
+    this.setState({ played: parseFloat(event.target.value) })
+  }
+
+  onSeekMouseUp(event){
+    this.setState({ seeking: false})
+    this.player.seekTo(parseFloat(event.target.value))
+  }
+
   render() {
     // let currentTime = <Duration seconds={this.state.duration * (this.state.played)} />
     let progressBar = <ProgressBar
       totalTime={this.state.duration}
       currentTime={this.state.isSeeking ? this.state.seekTime : (this.state.duration * this.state.played)}
-      isSeekable={true}
-      onSeek={this.handleSeek}
-      onSeekStart={() => console.log('onSeekStart')}
-      onSeekEnd={this.handleSeekEnd}
-      onIntent={() => console.log('onIntent')}
+      isSeekable={false}
+      // onSeek={this.handleSeek}
+      // onSeekStart={() => console.log('onSeekStart')}
+      // onSeekEnd={this.handleSeekEnd}
+      // onIntent={() => console.log('onIntent')}
       // style={{color: 'white', height: '20px', width: '200px', display: 'inline-block', visibility: 'visible'}}
     />
     return(
@@ -107,11 +138,10 @@ class EpisodeShow extends Component {
         <h2>{this.props.name}</h2>
         <h3>Duration: {this.props.duration}</h3>
         <div className='player-container'>
-          <ReactPlayer url={this.props.feedUrl}
-            playing
-          />
+
           <div className='player-wrapper'>
             <ReactPlayer
+              ref={this.ref}
               className='react-player'
               url={this.state.url}
               playing={this.state.playing}
@@ -130,11 +160,8 @@ class EpisodeShow extends Component {
           <div className="myProgress">
             <div className="myBar"></div>
           </div>
-          <div className="progress">
-            {progressBar}
-          </div>
           <table>
-            <tr>
+            <tbody>
               <th>Controls</th>
               <td>
                 <button className="circle" onClick={this.stop}><i className="fa fa-stop"></i></button>
@@ -148,16 +175,40 @@ class EpisodeShow extends Component {
                 </label>
               </td>
               <td>
-                <h3>elapsed</h3><Duration seconds={this.state.duration * (this.state.played)} />
+                <p>elapsed</p><Duration seconds={this.state.duration * (this.state.played)} />
               </td>
               <td>
-                <h3>remaining</h3><Duration seconds={this.state.duration * (1 - this.state.played)} />
+                <p>remaining</p><Duration seconds={this.state.duration * (1 - this.state.played)} />
               </td>
-            </tr>
+            </tbody>
+            <tbody>
+              <td colSpan="4">
+              </td>
+              <td colSpan="2">
+                <span>
+                  volume
+                </span>
+                <span className="volume-bar">
+                  <input type='range' min={0} max={1} step='any' value={this.state.volume} onChange={this.setVolume} />
+                </span>
+              </td>
+            </tbody>
           </table>
+          <div className="progress-bar">
+            {progressBar}
+          </div>
+          <div className="progress-bar">
+            <input
+              type='range' min={0} max={1} step='any'
+              value={this.state.played}
+              onMouseDown={this.onSeekMouseDown}
+              onChange={this.onSeekChange}
+              onMouseUp={this.onSeekMouseUp}
+            />
+          </div>
           <h2>Controls</h2>
               <h3>Load</h3>
-              {this.renderLoadButton("http://feeds.soundcloud.com/stream/273116676-nerd-cast-episode-6-comic-con-review-cpt-hydra-und-die-1.mp3", "Load Episode")}
+              {this.renderLoadButton(this.props.feedUrl, "Load Episode")}
               <button onClick={this.stop}>Stop</button>
               <button onClick={this.playPause}>{this.state.playing ? 'Pause' : 'Play'}</button>
               <label>
@@ -180,3 +231,9 @@ class EpisodeShow extends Component {
 }
 
 export default EpisodeShow;
+
+// <ReactPlayer url={this.props.feedUrl}
+//   playing
+// />
+
+// "http://feeds.soundcloud.com/stream/273116676-nerd-cast-episode-6-comic-con-review-cpt-hydra-und-die-1.mp3"

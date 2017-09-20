@@ -13,6 +13,7 @@ const NavBar = props => {
           <Link to='/podcasts' className='link'>Subscriptions</Link>
           <Link to='/categories' className='link'>Categories</Link>
           <Link to='/search' className='link'>+</Link>
+          <Link to='/downtimes' className='link'>Downtimes</Link>
         </div>
       </div>
       {props.children}

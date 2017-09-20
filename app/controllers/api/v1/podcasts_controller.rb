@@ -1,14 +1,21 @@
 class Api::V1::PodcastsController < ApplicationController
   skip_before_action :verify_authenticity_token
   def index
+    # if params[:category_id]
+    #   category = Category.find(params[:category_id])
+    #   render json: category.podcasts
+    # elsif params[:user_id]
+    #   user = User.find(params[:user_id])
+    #   render json: user.podcasts
+    # else
+    #   render json: Podcast.all
+    # end
     if params[:category_id]
       category = Category.find(params[:category_id])
       render json: category.podcasts
-    elsif params[:user_id]
-      user = User.find(params[:user_id])
-      render json: user.podcasts
     else
-      render json: Podcast.all
+      user = User.find(current_user.id)
+      render json: user.podcasts
     end
   end
   def show
@@ -63,6 +70,7 @@ class Api::V1::PodcastsController < ApplicationController
           description: description
         )
       end
+      subscription = Subscription.create(user: current_user, podcast: podcast)
       render json: podcast
     end
   end

@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :categories, to: 'static_pages#index'
   # resources :episodes, to: 'static_pages#index'
   # resources :users, to: 'static_pages#index'
-
+  resources :downtimes, to: 'static_pages#index'
 
   namespace :api do
     namespace :v1 do
@@ -32,6 +32,7 @@ Rails.application.routes.draw do
         get "/fetch/:id", to: 'users#fetch'
         resources :podcasts, only: [:index, :show, :create]
       end
+      resources :downtimes, only: [:index, :show]
     end
   end
 end

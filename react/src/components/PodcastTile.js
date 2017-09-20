@@ -4,14 +4,14 @@ import { Link } from 'react-router';
 const PodcastTile = props => {
   return (
     <Link to={`/podcasts/${props.id}`}>
-      <div className='tile'>
+      <div className='podcast-tile one-third column'>
         <img src={props.artUrl} alt="podcast art" height="200px"/>
-        <p>{props.artistName}</p>
-        <p>{props.collectionName}</p>
-        <p>{props.description}</p>
       </div>
     </Link>
   )
 }
 
 export default PodcastTile;
+        // <p>{props.description}</p>
+        // <p>{props.artistName}</p>
+        // <p>{props.collectionName}</p>
