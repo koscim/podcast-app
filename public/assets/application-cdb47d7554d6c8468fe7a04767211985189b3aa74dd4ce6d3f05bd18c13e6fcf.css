@@ -1,0 +1,406 @@
+/* line 1, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar,
+.VolumeSlider {
+  position: relative;
+  background: #eee;
+  border-radius: 4px;
+}
+/* line 7, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar-elapsed, .ProgressBar-value,
+.VolumeSlider-elapsed,
+.VolumeSlider-value {
+  background: gray;
+  border-radius: 4px;
+}
+/* line 13, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar-seek,
+.VolumeSlider-seek {
+  position: absolute;
+  cursor: pointer;
+}
+/* line 18, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar-handle,
+.VolumeSlider-handle {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: green;
+  border-radius: 100%;
+  transform: scale(0);
+  transition: transform 0.2s;
+}
+/* line 31, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar.isSeekable:hover .ProgressBar-handle,
+.ProgressBar.isSeekable:hover .VolumeSlider-handle, .ProgressBar.isEnabled:hover .ProgressBar-handle,
+.ProgressBar.isEnabled:hover .VolumeSlider-handle,
+.VolumeSlider.isSeekable:hover .ProgressBar-handle,
+.VolumeSlider.isSeekable:hover .VolumeSlider-handle,
+.VolumeSlider.isEnabled:hover .ProgressBar-handle,
+.VolumeSlider.isEnabled:hover .VolumeSlider-handle {
+  transform: scale(1);
+}
+/* line 36, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar.isSeekable:hover .ProgressBar-intent,
+.ProgressBar.isSeekable:hover .VolumeSlider-intent, .ProgressBar.isEnabled:hover .ProgressBar-intent,
+.ProgressBar.isEnabled:hover .VolumeSlider-intent,
+.VolumeSlider.isSeekable:hover .ProgressBar-intent,
+.VolumeSlider.isSeekable:hover .VolumeSlider-intent,
+.VolumeSlider.isEnabled:hover .ProgressBar-intent,
+.VolumeSlider.isEnabled:hover .VolumeSlider-intent {
+  position: absolute;
+  background: rgba(0, 0, 0, 0.05);
+}
+/* line 43, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar.isSeekable .ProgressBar-elapsed,
+.ProgressBar.isSeekable .VolumeSlider-value, .ProgressBar.isEnabled .ProgressBar-elapsed,
+.ProgressBar.isEnabled .VolumeSlider-value,
+.VolumeSlider.isSeekable .ProgressBar-elapsed,
+.VolumeSlider.isSeekable .VolumeSlider-value,
+.VolumeSlider.isEnabled .ProgressBar-elapsed,
+.VolumeSlider.isEnabled .VolumeSlider-value {
+  background: green;
+}
+
+/* line 50, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar {
+  height: 8px;
+  margin: 10px 0;
+}
+/* line 54, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar-elapsed {
+  height: 100%;
+}
+/* line 58, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar-seek {
+  top: -6px;
+  right: 0;
+  bottom: -6px;
+  left: 0;
+}
+/* line 65, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar-handle {
+  top: 0;
+  margin: -4px 0 0 -8px;
+}
+/* line 72, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar.isSeekable:hover .ProgressBar-handle {
+  transform: scale(1);
+}
+/* line 76, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar.isSeekable:hover .ProgressBar-intent {
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+/* line 84, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.ProgressBar.isLoading {
+  opacity: 0.5;
+  background: #ccc;
+  animation: barLoading 2s infinite;
+}
+
+/* line 91, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.VolumeSlider {
+  width: 8px;
+  height: 100px;
+}
+/* line 96, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.VolumeSlider-value {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+/* line 102, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.VolumeSlider-seek {
+  left: -6px;
+  top: 0;
+  right: -6px;
+  bottom: 0;
+}
+/* line 109, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.VolumeSlider-handle {
+  left: 0;
+  margin: 0 0 -8px -4px;
+}
+/* line 116, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.VolumeSlider.isEnabled:hover .VolumeSlider-handle {
+  transform: scale(1);
+}
+/* line 120, /Users/koscim/podcast-app/app/assets/stylesheets/app.scss */
+.VolumeSlider.isEnabled:hover .VolumeSlider-intent {
+  bottom: 0;
+  left: 0;
+  width: 100%;
+}
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+
+
+ */
+
+@import url('https://fonts.googleapis.com/css?family=Forum');
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+ body {
+   background-image: url('/images/stardust.png');
+   /*color: #CCCCCC;*/
+   color: #FFFFFF;
+   /*background: #d0dcc4;*/
+   background: #ea5a64;
+   font-family: 'Forum', cursive;
+   font-size: 20px;
+   margin: 0 auto;
+ }
+
+ div {
+   /*background: #218396;
+   border-width: 5px;
+   border-style: solid;
+   border-color: #29b2bd;
+   border-radius: 25px;
+   padding: 20px;
+   margin: 5px;*/
+
+
+   /*width: 200px;
+   height: 150px; */
+ }
+
+h1, h2, h3, h4 {
+  color: #f2c295;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  margin: 10px;
+  /*color: #ea5a64;*/
+}
+
+a,
+a:visited {
+  color: #FFFFFF;
+  text-decoration: none;
+}
+
+.link {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+.top-bar-section {
+  display: inline-block;
+  float: right;
+  margin: -10px;
+}
+
+.top-bar-title {
+  display: inline-block;
+  float: left;
+  margin-top: -15px;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.top-bar {
+  background-color: #3C3C3C;
+  padding: 25px;
+  border-bottom: 2px #FFFFFF solid;
+}
+
+.bottom-bar {
+  background-color: #3C3C3C;
+  padding: 25px;
+  border-top: 2px #FFFFFF solid;
+}
+
+.bottom-bar-section {
+  display: inline-block;
+  float: right;
+  margin-top: -5px;
+}
+
+.title {
+  background: #3C3C3C;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #FFFFFF;
+  border-radius: 10px;
+  padding-left: 10px;
+  margin: 12px;
+  /*background: #FFFFFF;*/
+}
+
+.tile {
+  background: #218396;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #29b2bd;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 5px;
+}
+
+.tile:hover {
+  background: #3C3C3C;
+}
+
+.container {
+  background: #218396;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #29b2bd;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 20px;
+}
+
+.player-container {
+  background: #218396;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #29b2bd;
+  border-radius: 25px;
+  padding: 20px;
+  margin: 5px;
+}
+
+.player-button{
+
+}
+
+.link {
+  padding: 5px;
+  /*border:1px solid black;*/
+  border: 2px solid #3CC7FD;
+  border-radius:8px;
+  background-color: #073165;
+  background-color: -webkit-linear-gradient(left top, #073165, #001439);
+  background: -o-linear-gradient(bottom right, #073165, #001439); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #073165, #001439); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #073165, #001439); /* Standard syntax */
+  /*background-color: #494949;*/
+  /*background:-webkit-linear-gradient(top,  #494949 0%,#707070 100%);*/
+  z-index:2;
+}
+
+.link:hover {
+  background-color: #707070;
+  border-bottom-color: #F5FEFF;
+  box-shadow: 0 0 10px #F5FEFF;
+  /*box-shadow: 0 4px 2px -2px #F5FEFF;*/
+}
+
+.player-wrapper {
+  width: 100%;
+  height: 100px;
+  background-color: black;
+  border: 1px solid grey;
+  border-radius: 8px;
+}
+
+.react-player {
+  margin-bottom: 10px;
+  background: rgba(#000, .1);
+}
+
+.circle {
+  border-radius: 50%;
+  background-color: teal;
+  color: black;
+}
+
+.hide {
+  opacity: 0;
+  display: none;
+}
+
+table {
+  border: 1px solid grey;
+  border-radius: 8px;
+  background-color: #21003f;
+  width: 100%;
+}
+
+th {
+  margin: 2px;
+}
+
+td {
+  padding: 2px;
+  text-align: center;
+}
+
+.dropbtn {
+  background-color: #4CAF50;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content Link {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #3e8e41;
+}
+
+.bevelBox
+{
+  background-color: #3C3C3C;
+
+  border: 1px solid #000000;
+
+  -moz-box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);
+  -webkit-box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);
+  box-shadow: inset 2px 2px 2px rgba(255, 255, 255, .4), inset -2px -2px 2px rgba(0, 0, 0, .4);
+}
+
+/*.myProgress {
+    width: 100%;
+    background-color: grey;
+}
+.myBar {
+    width: 1%;
+    height: 30px;
+    background-color: green;
+}
+
+.progress {
+  height: 30px;
+  width: 100%;
+}*/
