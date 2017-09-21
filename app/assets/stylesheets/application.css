@@ -129,7 +129,8 @@ a:visited {
 }*/
 
 .podcast-tile {
-  background: #218396;
+  /*background: #218396;*/
+  background-color: #3C3C3C
   border-width: 2px;
   border-style: solid;
   border-color: #FFFFFF;
@@ -284,6 +285,7 @@ td {
   width: 100%;
 }*/
 
+
 .progress-bar {
   width: 100%;
 }
@@ -303,3 +305,53 @@ td {
 
 .grid-item { width: 200px; }
 .grid-item--width2 { width: 400px; }
+
+.card {
+  position: relative;
+  padding-bottom: 25%;
+  text-align: center;
+  background-color: #3C3C3C
+}
+
+.card__front,
+.card__back {
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 10px;
+}
+
+.card__front,
+.card__back {
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  -webkit-transition: -webkit-transform 0.7s;
+          transition: transform 0.7s;
+}
+
+.card__front {
+  /*background-color: #3C3C3C;*/
+  background: #218396;
+}
+
+.card__back {
+  background-color: #1e1e1e;
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.card.effect__hover:hover .card__front {
+  -webkit-transform: rotateY(180deg);
+          transform: rotateY(180deg);
+}
+
+.card.effect__hover:hover .card__back {
+  -webkit-transform: rotateY(0);
+          transform: rotateY(0);
+}

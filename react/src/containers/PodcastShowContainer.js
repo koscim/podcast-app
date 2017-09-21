@@ -51,7 +51,7 @@ class PodcastShowContainer extends Component {
         <PodcastShow
           key={this.state.podcast.id}
           id={this.state.podcast.id}
-          name={this.state.podcast.name}
+          name={this.state.podcast.collectionName}
         />
         {episodes}
         <div className="button" onClick={browserHistory.goBack} >

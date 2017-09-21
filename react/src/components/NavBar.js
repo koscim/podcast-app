@@ -1,29 +1,61 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { browserHistory, Link } from 'react-router';
 
-const NavBar = props => {
-  return(
-    <div>
-      <div className='top-bar bevelBox'>
-        <div className='top-bar-title'>
-          Pod
+class NavBar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: {}
+    }
+  }
+
+  componentDidMount() {
+    fetch(`/api/v1/users/`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+    .then(responseBody => {
+      this.setState({
+        user: responseBody.current_user
+      })
+    })
+    .catch((thing) => console.log("so sad"))
+    let userId = this.props.params.id;
+    fetch(`/api/v1/users/${userId}`)
+    .then(response => response.json())
+    .then(responseData => {
+      this.setState({
+        user: responseData.user
+      })
+    })
+  }
+
+  render(){
+    return(
+      <div>
+        <div className='top-bar bevelBox'>
+          <div className='top-bar-title'>
+            Pod
+          </div>
+          <div className='top-bar-section'>
+            {!this.state.user ? <a href='/users/sign_in' className='link'>Sign In</a> : ""}
+            {this.state.user ? <a href='/users/sign_out' data-method="delete" rel='nofollow' className='link'>Sign Out</a> : ""}
+            {!this.state.user ? <a href='/users/sign_up' className='link'>Sign Up</a> : ""}
+            <Link to='/' className='link'>Home</Link>
+            <Link to='/podcasts' className='link'>Subscriptions</Link>
+            <Link to='/categories' className='link'>Categories</Link>
+            <Link to='/search' className='link'>+</Link>
+            <Link to='/downtimes' className='link'>Downtimes</Link>
+          </div>
         </div>
-        <div className='top-bar-section'>
-          <Link to='/' className='link'>Home</Link>
-          <Link to='/podcasts' className='link'>Subscriptions</Link>
-          <Link to='/categories' className='link'>Categories</Link>
-          <Link to='/search' className='link'>+</Link>
-          <Link to='/downtimes' className='link'>Downtimes</Link>
+        {this.props.children}
+        <div className='bottom-bar'>
+          <div className="button bottom-bar-section" onClick={browserHistory.goBack} >
+            Back
+          </div>
         </div>
       </div>
-      {props.children}
-      <div className='bottom-bar'>
-        <div className="button bottom-bar-section" onClick={browserHistory.goBack} >
-          Back
-        </div>
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default NavBar;

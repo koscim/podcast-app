@@ -4,8 +4,14 @@ import { Link } from 'react-router';
 const PodcastTile = props => {
   return (
     <Link to={`/podcasts/${props.id}`}>
-      <div className='podcast-tile one-third column'>
-        <img src={props.artUrl} alt="podcast art" height="200px"/>
+      <div className='podcast-tile one-third column card effect__hover'>
+        <div className="card__front">
+          <img src={props.artUrl} alt="podcast art" className="container" />
+        </div>
+        <div className="card__back">
+          <h3>{props.collectionName}</h3>
+          <h4>Episodes: {props.count}</h4>
+        </div>
       </div>
     </Link>
   )

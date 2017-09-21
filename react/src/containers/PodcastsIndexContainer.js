@@ -164,6 +164,7 @@ class PodcastsIndexContainer extends Component {
           collectionName={podcast.collectionName}
           artUrl={podcast.artUrl}
           description={podcast.description}
+          count={podcast.episodes.length}
         />
       )
     })
