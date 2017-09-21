@@ -5,6 +5,7 @@ class CreateDowntimes < ActiveRecord::Migration[5.1]
       t.time :startTime, null: false
       t.time :endTime
       t.float :duration
+      t.string :genre
       t.integer :user_id, null: false
     end
   end

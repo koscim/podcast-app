@@ -9,6 +9,7 @@ import NavBar from '../components/NavBar';
 import HomeShowContainer from'./HomeShowContainer';
 import SearchContainer from './SearchContainer';
 import DowntimesIndexContainer from './DowntimesIndexContainer';
+import DowntimeFormContainer from './DowntimeFormContainer';
 
 const App = (props) => {
   return (
@@ -22,6 +23,7 @@ const App = (props) => {
         <Route path="/categories" component={CategoriesIndexContainer} />
         <Route path="/categories/:id" component={CategoryShowContainer} />
         <Route path="/downtimes" component={DowntimesIndexContainer} />
+        <Route path="/downtimes/new" component={DowntimeFormContainer} />
       </Route>
     </Router>
   );

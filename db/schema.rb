@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170920185903) do
     t.time "startTime", null: false
     t.time "endTime"
     t.float "duration"
+    t.string "genre"
     t.integer "user_id", null: false
   end
 

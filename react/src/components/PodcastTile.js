@@ -6,7 +6,7 @@ const PodcastTile = props => {
     <Link to={`/podcasts/${props.id}`}>
       <div className='podcast-tile one-third column card effect__hover'>
         <div className="card__front">
-          <img src={props.artUrl} alt="podcast art" className="container" />
+          <img src={props.artUrl} alt="podcast art" className="" />
         </div>
         <div className="card__back">
           <h3>{props.collectionName}</h3>

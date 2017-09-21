@@ -6,9 +6,9 @@ class Api::V1::UsersController < ApplicationController
     render json: user_data
     # render json: User.all
   end
-  def show
-    render json: User.find(params[:id])
-  end
+  # def show
+  #   render json: User.find(params[:id])
+  # end
   def search
     OpenSSL::SSL::SSLContext.new :TLSv1
     name = params[:name]

@@ -74,7 +74,7 @@ class Api::V1::CategoriesController < ApplicationController
     category = Category.find(params[:id])
     genre_id = category.genre_id
     begin
-      itunes_response = Net::HTTP.get_response(URI.parse("https://itunes.apple.com/search?term=podcast&genreId=#{genre_id}&limit=20")).body
+      itunes_response = Net::HTTP.get_response(URI.parse("https://itunes.apple.com/search?term=podcast&genreId=#{genre_id}&limit=1000")).body
     rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => e
       false
     end
@@ -90,8 +90,10 @@ class Api::V1::CategoriesController < ApplicationController
       # feed_json = Hash.from_xml(feed_response).to_json
       # feed_parse = JSON.parse(feed_json)
       podcast = {
-        artist_name: result["artistName"],
-        collection_name: result["collectionName"]
+        artistName: result["artistName"],
+        collectionName: result["collectionName"],
+        collectionId: result["collectionId"],
+        artUrl: result["artworkUrl600"]
         # description: feed_parse["rss"]["channel"]["description"],
         # episodes_data: feed_parse["rss"]["channel"]["item"]
       }
@@ -104,7 +106,8 @@ class Api::V1::CategoriesController < ApplicationController
     # feed_data = []
     render json: {
       podcasts: podcasts,
-      category: Category.find(params[:id])
+      category: Category.find(params[:id]),
+      current_user: current_user
      }
 
     # podcast_feeds.each do |feed|

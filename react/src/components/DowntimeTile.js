@@ -5,10 +5,10 @@ const DowntimeTile = props => {
   return (
     <Link to={`/downtimes/${props.id}`}>
       <div className='tile'>
-        <p>{props.name}</p>
-        <p>{props.startTime}</p>
-        <p>{props.endTime}</p>
-        <p>{props.duration} minutes</p>
+        <h1>{props.name}</h1>
+        <p>Start Time: {props.startTime}</p>
+        <p>End Time: {props.endTime}</p>
+        <p>Duration: {props.duration/60} minutes</p>
       </div>
     </Link>
   )

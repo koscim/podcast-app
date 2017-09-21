@@ -26,6 +26,16 @@
 */
 
 
+
+@media (max-width: 550px) {
+  .container {
+    width: 85%;
+    padding: 0;
+  }
+  .column {
+    min-height: 350px;
+  }
+}
 /* Grid
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .container {
@@ -34,24 +44,38 @@
   max-width: 960px;
   margin: 0 auto;
   padding: 0 20px;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 .column,
 .columns {
   width: 100%;
   float: left;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
+.container img {
+  max-height: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+}
 /* For devices larger than 400px */
 @media (min-width: 400px) {
   .container {
     width: 85%;
-    padding: 0; }
+    padding: 0;
+  }
 }
 
 /* For devices larger than 550px */
 @media (min-width: 550px) {
   .container {
-    width: 80%; }
+    width: 80%;
+  }
+  .container img {
+    max-height: 100%;
+    max-width: 100%;
+    vertical-align: middle;
+  }
   .column,
   .columns {
     margin-left: 4%; }
@@ -241,7 +265,9 @@ select {
   color: black;
   border-radius: 4px;
   box-shadow: none;
-  box-sizing: border-box; }
+  box-sizing: border-box;
+  width: 100%;
+}
 /* Removes awkward default styles on some inputs for iOS */
 input[type="email"],
 input[type="number"],

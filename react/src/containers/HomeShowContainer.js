@@ -19,14 +19,6 @@ class HomeShowContainer extends Component {
       })
     })
     .catch((thing) => console.log("so sad"))
-    let userId = this.props.params.id;
-    fetch(`/api/v1/users/${userId}`)
-    .then(response => response.json())
-    .then(responseData => {
-      this.setState({
-        user: responseData.user
-      })
-    })
   }
 
   render() {

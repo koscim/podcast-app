@@ -27,7 +27,8 @@ class DowntimesIndexContainer extends Component {
     .then(response => response.json())
     .then(responseBody => {
       this.setState({
-        downtimes: responseBody.downtimes
+        downtimes: responseBody.downtimes,
+        user: responseBody.downtimes
       })
     })
   }
@@ -49,6 +50,9 @@ class DowntimesIndexContainer extends Component {
         <div className='container'>
           Downtime Show!!!
           {downtimes}
+          <Link to={`/downtimes/new`}>
+            Add A New Downtime
+          </Link>
           <div className="button" onClick={browserHistory.goBack} >
             Back
           </div>

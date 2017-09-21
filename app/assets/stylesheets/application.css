@@ -355,3 +355,46 @@ td {
   -webkit-transform: rotateY(0);
           transform: rotateY(0);
 }
+
+.hidden {
+  display: none;
+}
+
+.shown {
+  display: block;
+}
+
+@media (min-width: 400px) {
+  .form-tile {
+    max-width: 75%;
+    /*background-color: blue;*/
+    padding: 20px;
+    background-color: #218396;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-radius: 25px;
+  }
+}
+
+@media (min-width: 500px) {
+  .form-tile {
+    max-width: 75%;
+    /*background-color: blue;*/
+    padding: 20px;
+    background-color: #218396;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-radius: 25px;
+  }
+}
+/*.form-tile {
+  max-width: 75%;
+  background-color: blue;
+  padding: 20px;
+}*/
+
+/*.form-input {
+  width: 100%;
+}*/

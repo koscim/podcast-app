@@ -2,7 +2,8 @@ import React from 'react';
 
 const TextField = props => {
   return (
-    <label className="white-text">{props.label}
+    <label className="white-text">
+      {props.label}
       <input
         name={props.name}
         onChange={props.handlerFunction}

@@ -47,20 +47,25 @@ class Api::V1::PodcastsController < ApplicationController
         elsif episode["link"]
             mp3 = episode["link"]
         end
+
         if episode["duration"]
           duration = episode["duration"]
         end
+
         if episode["title"]
           name = episode["title"]
         end
+
         if episode["image"]
           if episode["image"]["href"]
             image = episode["image"]["href"]
           end
         end
+
         if episode["description"]
           description = episode["description"]
         end
+
         episode = Episode.create(
           name: name,
           feedUrl: mp3,
@@ -70,9 +75,9 @@ class Api::V1::PodcastsController < ApplicationController
           description: description
         )
       end
+    end
       subscription = Subscription.create(user: current_user, podcast: podcast)
       render json: podcast
-    end
   end
 
   def refresh
