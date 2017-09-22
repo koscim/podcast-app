@@ -30,6 +30,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show] do
         get "/search/:name", to: 'users#search'
         get "/fetch/:id", to: 'users#fetch'
+        get "/recommend/:time", to: 'users#recommend'
         resources :podcasts, only: [:index, :show, :create]
         resources :downtimes, only: [:index, :show, :create]
       end

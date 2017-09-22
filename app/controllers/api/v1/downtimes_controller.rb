@@ -8,8 +8,8 @@ class Api::V1::DowntimesController < ApplicationController
     downtimes.each do |downtime|
       parsed_downtime = {
         downtime: downtime,
-        startTime: downtime.startTime.strftime("%-I:%M %p"),
-        endTime: downtime.endTime.strftime("%-I:%M %p"),
+        startTime: Time.parse(downtime.startTime).strftime("%-I:%M %p"),
+        endTime: Time.parse(downtime.endTime).strftime("%-I:%M %p"),
         duration: downtime.duration
       }
       parsed_downtimes << parsed_downtime
@@ -20,6 +20,7 @@ class Api::V1::DowntimesController < ApplicationController
     render json: Downtime.find(params[:id])
   end
   def create
+    binding.pry
     data = JSON.parse(request.body.read)
     startTime = Time.parse(data["startTime"])
     endTime = Time.parse(data["endTime"])

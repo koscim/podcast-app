@@ -40,8 +40,8 @@ ActiveRecord::Schema.define(version: 20170920185903) do
 
   create_table "downtimes", force: :cascade do |t|
     t.string "name", null: false
-    t.time "startTime", null: false
-    t.time "endTime"
+    t.string "startTime", null: false
+    t.string "endTime"
     t.float "duration"
     t.string "genre"
     t.integer "user_id", null: false

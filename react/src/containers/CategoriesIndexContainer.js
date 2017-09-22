@@ -42,6 +42,7 @@ class CategoriesIndexContainer extends Component {
     return (
       <div className='container'>
         <h2>Genres</h2>
+        <h4>Find Podcasts by Genre</h4>
         {categories}
       </div>
     )

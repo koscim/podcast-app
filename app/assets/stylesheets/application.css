@@ -15,14 +15,18 @@
  */
 @import url('https://fonts.googleapis.com/css?family=Forum');
 @import url('https://fonts.googleapis.com/css?family=Quicksand');
+@import url('https://fonts.googleapis.com/css?family=Merriweather');
 
  body {
    background-image: url('/images/stardust.png');
    /*color: #CCCCCC;*/
    color: #FFFFFF;
    /*background: #d0dcc4;*/
-   background: #ea5a64;
-   font-family: 'Forum', cursive;
+   /*background: #ea5a64;*/
+   background: #394675;
+   /*background: #e86d75;*/
+   /*font-family: 'Forum', cursive;*/
+   font-family: 'Merriweather', serif;
    font-size: 20px;
    margin: 0 auto;
  }
@@ -42,8 +46,10 @@
  }
 
 h1, h2, h3, h4 {
-  color: #f2c295;
-  font-family: 'Quicksand', sans-serif;
+  color: #ede9e6;
+  /*color: #f2c295;*/
+  /*font-family: 'Quicksand', sans-serif;*/
+  font-family: 'Merriweather', serif;
   font-weight: bold;
   margin: 10px;
   /*color: #ea5a64;*/
@@ -130,6 +136,19 @@ a:visited {
 
 .podcast-tile {
   /*background: #218396;*/
+  font-family: 'Merriweather', serif;
+  /*background-color: #3C3C3C;*/
+  background-color: #ea5a64;
+  border-width: 2px;
+  border-style: solid;
+  border-color: #FFFFFF;
+  border-radius: 10px;
+  padding: 5px;
+  text-align: center;
+}
+
+.category-tile {
+  /*background: #218396;*/
   background-color: #3C3C3C;
   border-width: 2px;
   border-style: solid;
@@ -137,6 +156,12 @@ a:visited {
   border-radius: 10px;
   padding: 5px;
   text-align: center;
+  transition: .2s;
+}
+
+.category-tile:hover {
+  background-color: #848484;
+  background: #ea5a64;
 }
 
 .podcast-tile:hover {
@@ -157,25 +182,25 @@ a:visited {
 
 }
 
-.link {
-  padding: 5px;
+/*.link {
+  padding: 5px;*/
   /*border:1px solid black;*/
-  border: 2px solid #3CC7FD;
+  /*border: 2px solid #3CC7FD;
   border-radius:8px;
   background-color: #073165;
   background-color: -webkit-linear-gradient(left top, #073165, #001439);
-  background: -o-linear-gradient(bottom right, #073165, #001439); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, #073165, #001439); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, #073165, #001439); /* Standard syntax */
+  background: -o-linear-gradient(bottom right, #073165, #001439);
+  background: -moz-linear-gradient(bottom right, #073165, #001439);
+  background: linear-gradient(to bottom right, #073165, #001439); */
   /*background-color: #494949;*/
   /*background:-webkit-linear-gradient(top,  #494949 0%,#707070 100%);*/
-  z-index:2;
-}
+  /*z-index:2;
+}*/
 
 .link:hover {
   background-color: #707070;
   border-bottom-color: #F5FEFF;
-  box-shadow: 0 0 10px #F5FEFF;
+  /*box-shadow: 0 0 10px #F5FEFF;*/
   /*box-shadow: 0 4px 2px -2px #F5FEFF;*/
 }
 
@@ -337,7 +362,8 @@ td {
 
 .card__front {
   /*background-color: #3C3C3C;*/
-  background: #218396;
+  /*background: #218396;*/
+  /*background: #ea5a64;*/
 }
 
 .card__back {
@@ -347,6 +373,7 @@ td {
 }
 
 .card.effect__hover:hover .card__front {
+  /*background: #ea5a64;*/
   -webkit-transform: rotateY(180deg);
           transform: rotateY(180deg);
 }
@@ -375,9 +402,12 @@ td {
     border-color: #FFFFFF;
     border-radius: 25px;
   }
+  .small-letters {
+    font-size: 36px;
+  }
 }
 
-@media (min-width: 500px) {
+@media (min-width: 550px) {
   .form-tile {
     max-width: 75%;
     /*background-color: blue;*/
@@ -388,7 +418,27 @@ td {
     border-color: #FFFFFF;
     border-radius: 25px;
   }
+  .small-letters {
+    font-size: 14px;
+  }
 }
+
+@media (min-width: 700px) {
+  .form-tile {
+    max-width: 75%;
+    /*background-color: blue;*/
+    padding: 20px;
+    background-color: #218396;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #FFFFFF;
+    border-radius: 25px;
+  }
+  .small-letters {
+    font-size: 18px;
+  }
+}
+
 /*.form-tile {
   max-width: 75%;
   background-color: blue;
@@ -398,3 +448,9 @@ td {
 /*.form-input {
   width: 100%;
 }*/
+
+.homepage {
+  /*background: #394675;*/
+  background: #2A2F51;
+  opacity: 1.0;
+}

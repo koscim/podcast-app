@@ -16,7 +16,7 @@ const CategoryPodcastTile = props => {
           <img src={props.artUrl} alt="podcast art" className=""/>
         </div>
         <div className="card__back">
-          <h3>{props.collectionName}</h3>
+          <span className="small-letters">{props.collectionName}</span>
         </div>
       </div>
       <div className={`tile twelve-columns column ${props.hidden}`} onClick={handleClick}>

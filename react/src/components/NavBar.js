@@ -34,9 +34,9 @@ class NavBar extends Component {
             {!this.state.user ? <a href='/users/sign_up' className='link'>Sign Up</a> : ""}
             <Link to='/' className='link'>Home</Link>
             <Link to='/podcasts' className='link'>Subscriptions</Link>
-            <Link to='/categories' className='link'>Categories</Link>
-            <Link to='/search' className='link'>+</Link>
+            <Link to='/categories' className='link'>Genres</Link>
             <Link to='/downtimes' className='link'>Downtimes</Link>
+            <Link to='/search' className='link'>+</Link>
           </div>
         </div>
         {this.props.children}
