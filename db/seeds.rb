@@ -23,6 +23,14 @@ GENRES.each_with_index do |genre, index|
   Category.create(name: genre, genre_id: GENRE_IDS[index])
 end
 
+Day.create(day: "Sunday")
+Day.create(day: "Monday")
+Day.create(day: "Tuesday")
+Day.create(day: "Wednesday")
+Day.create(day: "Thursday")
+Day.create(day: "Friday")
+Day.create(day: "Saturday")
+
 # 100.times do
 #   name = Faker::Coffee.blend_name
 #   podcast = Podcast.create(collection_id: Faker::Number.number(10), artist_name: name, collection_name: Faker::Coffee.variety, art_url: Faker::Placeholdit.image, description: Faker::Coffee.notes)
