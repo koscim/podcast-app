@@ -20,7 +20,6 @@ class Api::V1::DowntimesController < ApplicationController
     render json: Downtime.find(params[:id])
   end
   def create
-    binding.pry
     data = JSON.parse(request.body.read)
     startTime = Time.parse(data["startTime"])
     endTime = Time.parse(data["endTime"])
