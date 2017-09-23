@@ -60,9 +60,8 @@ class Api::V1::UsersController < ApplicationController
 
     # selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.startTime).strftime("%H%M") > parsed_time.strftime("%H%M")) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f).to_i.to_s)}
 
-    selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.startTime).strftime("%H%M") > (parsed_time.strftime("%H%M").to_f - Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f).to_i.to_s)}
-
-
+    # selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.startTime).strftime("%H%M") > (parsed_time.strftime("%H%M").to_f - Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f).to_i.to_s)}
+    selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.startTime).strftime("%H%M") > (parsed_time.strftime("%H%M").to_f - Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f + Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s)}
 
     # selected_downtime = day_parsed_downtimes.select { |downtime| downtime.startTime.strftime("%H%M%S%N") > time.strftime("%H%M%S%N") }
     # selected_downtime = downtimes.select { |downtime| ((downtime.startTime - 3600) > parsed_time) && ((downtime.endTime + 3600) < (parsed_time + (downtime.duration))) }
