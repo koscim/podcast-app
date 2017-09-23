@@ -10,6 +10,7 @@ import HomeShowContainer from'./HomeShowContainer';
 import SearchContainer from './SearchContainer';
 import DowntimesIndexContainer from './DowntimesIndexContainer';
 import DowntimeFormContainer from './DowntimeFormContainer';
+import EditDowntimeFormContainer from './EditDowntimeFormContainer';
 
 const App = (props) => {
   return (
@@ -24,6 +25,8 @@ const App = (props) => {
         <Route path="/categories/:id" component={CategoryShowContainer} />
         <Route path="/downtimes" component={DowntimesIndexContainer} />
         <Route path="/downtimes/new" component={DowntimeFormContainer} />
+        <Route path="/downtimes/:id" />
+        <Route path="/downtimes/:id/edit" component={EditDowntimeFormContainer} />
       </Route>
     </Router>
   );

@@ -61,17 +61,40 @@ class Api::V1::UsersController < ApplicationController
     # selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.startTime).strftime("%H%M") > parsed_time.strftime("%H%M")) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f).to_i.to_s)}
 
     # selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.startTime).strftime("%H%M") > (parsed_time.strftime("%H%M").to_f - Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f).to_i.to_s)}
-    selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.startTime).strftime("%H%M") > (parsed_time.strftime("%H%M").to_f - Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f + Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s)}
 
+    #  THIS IS THE BEST ONE SO FAR
+    # selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.startTime).strftime("%H%M") > (parsed_time.strftime("%H%M").to_f - Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f + Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s)}
+
+    selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.endTime).strftime("%H%M") > (parsed_time.strftime("%H%M").to_f - Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f + Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s)}
+
+    # selected_downtimes = day_parsed_downtimes.select { |downtime| (Time.parse(downtime.startTime).strftime("%H%M") > (parsed_time.strftime("%H%M"))) && (Time.parse(downtime.endTime).strftime("%H%M") < (parsed_time.strftime("%H%M").to_f + Time.at(downtime.duration).utc.strftime("%H%M").to_f + Time.at(3600).utc.strftime("%H%M").to_f).to_i.to_s)}
     # selected_downtime = day_parsed_downtimes.select { |downtime| downtime.startTime.strftime("%H%M%S%N") > time.strftime("%H%M%S%N") }
     # selected_downtime = downtimes.select { |downtime| ((downtime.startTime - 3600) > parsed_time) && ((downtime.endTime + 3600) < (parsed_time + (downtime.duration))) }
     # downtimes.select { |downtime| }
-    # podcast.each do |podcast|
-    #   podcast.episodes.select(duration: )
-    # end
+    duration = selected_downtimes[0].duration
+    episodes = []
+    podcasts.each do |podcast|
+      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f != 0.0 }
+      episodes += selected_episodes
+    end
+
+    shorter_episodes = []
+    podcasts.each do |podcast|
+      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration/3 && episode.duration.to_f != 0.0 }
+      shorter_episodes += selected_episodes
+    end
+
+    longer_episodes = []
+    podcasts.each do |podcast|
+      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f > duration/2}
+      longer_episodes += selected_episodes
+    end
 
     downtime_data = {
       downtime: selected_downtimes[0],
+      episodes: episodes,
+      shorter_episodes: shorter_episodes.sample(3),
+      longer_episodes: longer_episodes.sample(3)
     }
     render json: downtime_data
   end

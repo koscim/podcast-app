@@ -136,7 +136,9 @@ class CategoryShowContainer extends Component {
           id={this.state.category.id}
           name={this.state.category.name}
         />
-        {podcasts}
+        <div className='podcast-container'>
+          {podcasts}
+        </div>
       </div>
     )
   }

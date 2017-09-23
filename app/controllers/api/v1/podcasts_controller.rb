@@ -50,6 +50,13 @@ class Api::V1::PodcastsController < ApplicationController
 
         if episode["duration"]
           duration = episode["duration"]
+          if duration.split(":").count == 2
+            minutes, seconds = duration.split(":").map(&:to_i)
+            duration = ((minutes * 60) + seconds).to_s
+          elsif duration.split(":").count == 3
+            hours, minutes, seconds = duration.split(":").map(&:to_i)
+            duration = (((hours * 60) + minutes) * 60 + seconds).to_s
+          end
         end
 
         if episode["title"]

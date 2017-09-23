@@ -3,7 +3,7 @@ import { Link } from 'react-router';
 
 const DowntimeTile = props => {
   return (
-    <Link to={`/downtimes/${props.id}`}>
+    <Link to={`/downtimes/${props.id}/edit`}>
       <div className='tile'>
         <h1>{props.name}</h1>
         <p>Start Time: {props.startTime}</p>

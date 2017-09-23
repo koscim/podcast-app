@@ -9,8 +9,9 @@ const PodcastTile = props => {
           <img src={props.artUrl} alt="podcast art" className="" />
         </div>
         <div className="card__back">
-          <h3>{props.collectionName}</h3>
-          <h4>Episodes: {props.count}</h4>
+        <span className="small-letters">{props.collectionName}</span>
+        <br />
+        <span className="small-letters">Episodes: {props.count}</span>
         </div>
       </div>
     </Link>

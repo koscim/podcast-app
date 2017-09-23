@@ -111,13 +111,18 @@ a:visited {
 }
 
 .tile {
-  background: #218396;
+  background: #5D5D5D;
+  /*background: #218396;*/
   border-width: 5px;
   border-style: solid;
-  border-color: #29b2bd;
+  border-color: #FFFFFF;
+  /*border-color: #29b2bd;*/
   border-radius: 25px;
+  border-width: 2px;
   padding: 20px;
-  margin: 5px;
+  margin: 5px auto;
+  /*margin: 5px;*/
+  transition: .2s;
 }
 
 .tile:hover {
@@ -165,6 +170,7 @@ a:visited {
 }
 
 .podcast-tile:hover {
+  cursor: pointer;
   background: #3C3C3C;
 }
 
@@ -384,11 +390,33 @@ td {
 }
 
 .hidden {
+  /*transition: opacity 1s ease-out;*/
   display: none;
+  opacity: 0;
+  /*opacity: 0;
+  height: 0;
+  overflow: hidden;*/
 }
 
 .shown {
+  /*opacity: 1;
+  height: auto;*/
   display: block;
+  opacity: 1;
+  -webkit-animation: display-none-transition 1.5s both;
+  animation: display-none-transition 1.5s both;
+}
+
+@-webkit-keyframes display-none-transition {
+  0% {
+    opacity: 0;
+  }
+}
+
+@keyframes display-none-transition {
+  0% {
+    opacity: 0;
+  }
 }
 
 @media (min-width: 400px) {
@@ -453,4 +481,16 @@ td {
   /*background: #394675;*/
   background: #2A2F51;
   opacity: 1.0;
+}
+
+.header-title{
+  margin: 0 auto;
+  text-align: center;
+}
+.spaced{
+  letter-spacing: 4px;
+}
+
+.podcast-container{
+  margin: 0 auto;
 }
