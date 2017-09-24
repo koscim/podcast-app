@@ -7,66 +7,8 @@ class PodcastsIndexContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      podcasts: [],
-      feedUrls: [],
-      playing: false,
-      volume: 0.8,
-      muted: false,
-      played: 0,
-      loaded: 0,
-      duration: 0,
-      playbackRate: 1.0,
-      url: null
+      podcasts: []
     }
-    // this.translateUrl = this.translateUrl.bind(this)
-    this.playPause = this.playPause.bind(this)
-    this.stop = this.stop.bind(this)
-    this.toggleMuted = this.toggleMuted.bind(this)
-    this.onPlay = this.onPlay.bind(this)
-    this.onPause = this.onPause.bind(this)
-    this.onProgress = this.onProgress.bind(this)
-    this.renderLoadButton = this.renderLoadButton.bind(this)
-    this.load = this.load.bind(this)
-  }
-
-  load(url){
-    this.setState({
-      url,
-      played: 0,
-      loaded: 0
-    })
-  }
-
-  playPause(){
-    this.setState({ playing: !this.state.playing })
-  }
-
-  stop(){
-    this.setState({ url: null, playing: false })
-  }
-
-  toggleMuted(){
-    this.setState({ muted: !this.state.muted })
-  }
-
-  onPlay(){
-    this.setState({ playing: true })
-  }
-
-  onPause(){
-    this.setState({ playing: false })
-  }
-
-  onProgress(state){
-    this.setState(state)
-  }
-
-  renderLoadButton(url,label){
-    return(
-      <button onClick={() => this.load(url)}>
-        {label}
-      </button>
-    )
   }
 
   componentDidMount() {
@@ -169,8 +111,8 @@ class PodcastsIndexContainer extends Component {
       )
     })
     return (
-      <div className='container'>
-        <h1>Your Subscriptions</h1>
+      <div className='container homepage'>
+        <h1>YOUR SUBSCRIPTIONS</h1>
         <div className="row">
           {podcasts}
         </div>

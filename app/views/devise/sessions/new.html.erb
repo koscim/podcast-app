@@ -1,10 +1,8 @@
-<h3>Welcome to Pod, the intelligent podcast player.</h3>
-<h4>Before you can immerse yourself in your podcasts, you must sign in below.</h4>
-<h4>If you are new to Pod, please take the time to sign up.</h4>
-
-<h2>Log in</h2>
-
-<div class="container">
+<div class="container homepage">
+  <h1>WELCOME TO POD,</h1>
+  <h1>THE INTELLIGENT PODCAST PLAYER.</h1>
+  <h4>BEFORE YOU CAN IMMERSE YOURSELF IN PODCASTS, YOU MUST SIGN IN BELOW.</h4>
+  <h4>IF YOU ARE NEW TO POD, PLEASE TAKE THE TIME TO SIGN UP.</h4>
   <div class="u-full-width">
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
@@ -27,8 +25,7 @@
       <div class="actions">
         <%= f.submit "Log in" %>
       </div>
+      <%= render "devise/shared/links" %>
     <% end %>
   </div>
 </div>
-
-<%= render "devise/shared/links" %>

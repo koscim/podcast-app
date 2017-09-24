@@ -6,7 +6,6 @@ const EpisodeTile = props => {
   let hours = Math.floor(parseInt(props.duration) / 3600)
   let minutes = Math.floor(parseInt(props.duration) % 3600 / 60)
   let seconds = Math.floor(parseInt(props.duration) % 3600 % 60)
-  debugger;
   return (
     <Link to={`/podcasts/${props.podcast_id}/episodes/${props.id}`}>
       <div className='tile'>

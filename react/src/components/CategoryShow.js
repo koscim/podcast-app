@@ -4,7 +4,7 @@ import { browserHistory, Link } from 'react-router';
 const CategoryShow = (props) => {
   return(
     <div className="header-title">
-      <h2 className="spaced">{props.name}</h2>
+      {props.name ? <h2>{props.name.toUpperCase()}</h2> : ""}
     </div>
   )
 }

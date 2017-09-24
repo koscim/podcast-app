@@ -20,7 +20,7 @@ class SearchContainer extends Component {
       selectedEpisodes: []
     }
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.handleCategoryCheckboxChange = this.handleCategoryCheckboxChange.bind(this)
+    // this.handleCategoryCheckboxChange = this.handleCategoryCheckboxChange.bind(this)
     this.handleNameCheckboxChange = this.handleNameCheckboxChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.changeState = this.changeState.bind(this)
@@ -76,16 +76,16 @@ class SearchContainer extends Component {
     this.setState({ search: event.target.value })
   }
 
-  handleCategoryCheckboxChange(event) {
-    if(this.state.searchName){
-      this.setState({
-        searchName: false,
-        searchCategory: !this.state.searchCategory
-      })
-    } else{
-      this.setState({ searchCategory: !this.state.searchCategory })
-    }
-  }
+  // handleCategoryCheckboxChange(event) {
+  //   if(this.state.searchName){
+  //     this.setState({
+  //       searchName: false,
+  //       searchCategory: !this.state.searchCategory
+  //     })
+  //   } else{
+  //     this.setState({ searchCategory: !this.state.searchCategory })
+  //   }
+  // }
 
   handleNameCheckboxChange(event) {
     if(this.state.searchCategory){
@@ -183,7 +183,7 @@ class SearchContainer extends Component {
       )
     })
     return(
-      <div className='container'>
+      <div className='container homepage'>
         <form onSubmit={this.handleSearch}>
           <table>
             <tbody>
@@ -193,16 +193,6 @@ class SearchContainer extends Component {
                 name="search"
                 handlerFunction={this.handleInputChange}
               />
-            </tbody>
-            <tbody>
-              <label>
-                <input
-                  name="searchCategory"
-                  type="checkbox"
-                  checked={this.state.searchCategory}
-                  onChange={this.handleCategoryCheckboxChange}
-                />category
-              </label>
             </tbody>
             <tbody>
               <label>
@@ -229,3 +219,14 @@ class SearchContainer extends Component {
 }
 
 export default SearchContainer;
+
+// <tbody>
+//   <label>
+//     <input
+//       name="searchCategory"
+//       type="checkbox"
+//       checked={this.state.searchCategory}
+//       onChange={this.handleCategoryCheckboxChange}
+//     />category
+//   </label>
+// </tbody>

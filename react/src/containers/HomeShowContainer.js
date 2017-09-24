@@ -29,15 +29,16 @@ class HomeShowContainer extends Component {
     .then(responseBody => {
       user = responseBody.current_user
       this.setState({
-        user: responseBody.current_user
+        user: responseBody.current_user,
       })
     })
     .catch((thing) => console.log("so sad"))
-    setInterval( () => {
-      this.setState({
-        currentTime : new Date().toLocaleString()
-      })
-    }, 1000)
+    this.intervalID = setInterval(() => this.tick(), 1000);
+    // setInterval( () => {
+    //   this.setState({
+    //     currentTime : new Date().toLocaleString()
+    //   })
+    // }, 1000)
     // fetch(`/api/v1/users/${this.state.user.id}/recommend`, {
     //   credentials: 'same-origin',
     //   body: JSON.stringify(timePayload)
@@ -48,6 +49,16 @@ class HomeShowContainer extends Component {
     //   })
     // })
     // .catch((thing) => console.log("so sad"))
+  }
+
+  tick() {
+    this.setState({
+      currentTime : new Date().toLocaleString()
+    })
+  }
+
+  componentWillUnmount(){
+    clearInterval(this.intervalID)
   }
 
   generateSuggestions(){
@@ -118,20 +129,24 @@ class HomeShowContainer extends Component {
     })
     return (
       <div className='container homepage'>
-        <h1>Welcome back</h1>
-        <h1>{this.state.user.first_name}</h1>
+        <h1>WELCOME BACK</h1>
+        {this.state.user.first_name ? <h1>{this.state.user.first_name.toUpperCase()}</h1> : ""}
+        <div className="border-underline"></div>
         <br />
-        <h3>The time is now: {this.state.currentTime}</h3>
-        <button onClick={this.generateSuggestions}>Generate Suggestions</button>
-        {this.state.downtime.name ? <h3>We&#39;ve curated a podcast list for {this.state.downtime.name}.</h3> : "" }
+        <h3>THE CURRENT TIME IS:</h3>
+        {this.state.currentTime != "" ? <h3>{this.state.currentTime}</h3> : <h3><br /></h3>}
+        <h4>CLICK BELOW TO GENERATE YOUR CURATED LIST OF EPISODES</h4>
+        <button className="centered" onClick={this.generateSuggestions}>Generate Suggestions</button>
         <br />
-        {this.state.shorter_episodes.length > 0 ? <h3>Here are shorter episodes:</h3> : ""}
+        {this.state.downtime.name ? <h3>WE&#39;VE CURATED A PODCAST LIST FOR <span className="bold-outline">{this.state.downtime.name.toUpperCase()}</span>.</h3> : "" }
+        <br />
+        {this.state.shorter_episodes.length > 0 ? <h3>HERE ARE SHORTER EPISODES: </h3> : ""}
         {shorter_episodes}
         <br />
-        <h3>Here is a longer episode:</h3>
+        {this.state.longer_episodes.length > 0 ? <h3>HERE IS A LONGER EPISODE: </h3> : ""}
         {longer_episodes}
         <br />
-        <h3>Based on your subscriptions, you might enjoy this new podcast:</h3>
+        {this.state.longer_episodes.length > 0 ? <h3>Based on your subscriptions, you might enjoy this new podcast:</h3> : ""}
         <br />
       </div>
     )

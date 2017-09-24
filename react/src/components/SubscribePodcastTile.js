@@ -12,10 +12,14 @@ const SubscribePodcastTile = props => {
   return (
     <li>
       <div className='tile' onClick={handleClick}>
-        <i className={props.className} onClick={handleClick} aria-hidden="true"></i>
-        <img src={props.artUrl} alt="podcast art" height="200px"/>
-        <p>{props.artistName}</p>
-        <p>{props.collectionName}</p>
+        <div className='inline'>
+          <i className={props.className} onClick={handleClick} aria-hidden="true"></i>
+          <img src={props.artUrl} alt="podcast art" height="200px"/>
+        </div>
+        <div className='inline'>
+          <h3>{props.collectionName}</h3>
+          <h4>{props.artistName}</h4>
+        </div>
         <p>{props.description}</p>
         {props.description ? <button onClick={subscribeClick}>Subscribe</button> : ""}
       </div>

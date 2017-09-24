@@ -3,6 +3,7 @@ import CategoryShow from '../components/CategoryShow';
 import { browserHistory, Link } from 'react-router';
 import PodcastTile from '../components/PodcastTile';
 import CategoryPodcastTile from '../components/CategoryPodcastTile';
+import LoadingCircle from '../components/LoadingCircle';
 
 class CategoryShowContainer extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ class CategoryShowContainer extends Component {
       selectedId: null,
       selectedDescription: "",
       selectedEpisodes: [],
-      user: {}
+      user: {},
+      loaded: false
     }
     this.changeState = this.changeState.bind(this)
     this.fetchDescription = this.fetchDescription.bind(this)
@@ -74,7 +76,8 @@ class CategoryShowContainer extends Component {
       this.setState({
         category: responseData.category,
         podcasts: responseData.podcasts,
-        user: responseData.current_user
+        user: responseData.current_user,
+        loaded: true
       })
     })
     // fetch(`https://itunes.apple.com/search?term=podcast&genreId=1402&limit=200`)
@@ -129,8 +132,11 @@ class CategoryShowContainer extends Component {
       // )
     })
     return(
-      <div className='container'>
-        Category Show!!!!
+      <div className='container homepage'>
+        Genres
+        <LoadingCircle
+          loaded={this.state.loaded}
+        />
         <CategoryShow
           key={this.state.category.id}
           id={this.state.category.id}

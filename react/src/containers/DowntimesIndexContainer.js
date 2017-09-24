@@ -47,11 +47,11 @@ class DowntimesIndexContainer extends Component {
         )
       })
       return(
-        <div className='container'>
-          Downtime Show!!!
+        <div className='container homepage'>
+          <h1>YOUR SCHEDULED DOWNTIMES</h1>
           {downtimes}
           <Link to={`/downtimes/new`}>
-            Add A New Downtime
+            <h3>ADD A NEW DOWNTIME</h3>
           </Link>
           <div className="button" onClick={browserHistory.goBack} >
             Back

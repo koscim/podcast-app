@@ -22,7 +22,7 @@ class EpisodeShowContainer extends Component {
 
   render() {
     return(
-      <div className='container'>
+      <div className='container homepage'>
         Episode Show!!!!
         <EpisodeShow
           key={this.state.episode.id}

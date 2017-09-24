@@ -91,8 +91,10 @@ class EpisodeShow extends Component {
   }
 
   onProgress(state){
-    if(!this.state.seeking){
-      this.setState(state)
+    if(this.ref){
+      if(!this.state.seeking){
+        this.setState(state)
+      }
     }
   }
 
@@ -122,6 +124,15 @@ class EpisodeShow extends Component {
   }
 
   render() {
+    let name;
+    if(this.props.name){
+      name = this.props.name.split(",")[0].replace("[", "").replace("]", "").toUpperCase()
+    } else {
+      name = ""
+    }
+    let hours = Math.floor(parseInt(this.props.duration) / 3600)
+    let minutes = Math.floor(parseInt(this.props.duration) % 3600 / 60)
+    let seconds = Math.floor(parseInt(this.props.duration) % 3600 % 60)
     // let currentTime = <Duration seconds={this.state.duration * (this.state.played)} />
     let progressBar = <ProgressBar
       totalTime={this.state.duration}
@@ -135,81 +146,67 @@ class EpisodeShow extends Component {
     />
     return(
       <div className='container'>
-        <h2>{this.props.name}</h2>
-        <h3>Duration: {this.props.duration}</h3>
-        <div className='player-container'>
-
-          <div className='player-wrapper'>
-            <ReactPlayer
-              ref={this.ref}
-              className='react-player'
-              url={this.state.url}
-              playing={this.state.playing}
-              volume={this.state.volume}
-              muted={this.state.muted}
-              playbackRate={this.state.playbackRate}
-              onReady={() => console.log('onReady')}
-              onStart={() => console.log('onStart')}
-              onPlay={this.onPlay}
-              onPause={this.onPause}
-              onEnded={() => this.setState({ playing: false})}
-              onProgress={this.onProgress}
-              onDuration={duration => this.setState({ duration })}
-            />
-          </div>
-          <div className="myProgress">
-            <div className="myBar"></div>
-          </div>
-          <table>
-            <tbody>
-              <th>Controls</th>
-              <td>
-                <button className="circle" onClick={this.stop}><i className="fa fa-stop"></i></button>
-              </td>
-              <td>
-                <button className="circle" onClick={this.playPause}>{this.state.playing ? <i className="fa fa-pause"></i> : <i className="fa fa-play"></i>}</button>
-              </td>
-              <td>
-                <label>
-                  <input type='checkbox' className="hide" checked={this.state.muted} onChange={this.toggleMuted} />{this.state.muted ? <i className="material-icons circle">volume_off</i> : <i className="material-icons circle">volume_up</i> }
-                </label>
-              </td>
-              <td>
-                <p>elapsed</p><Duration seconds={this.state.duration * (this.state.played)} />
-              </td>
-              <td>
-                <p>remaining</p><Duration seconds={this.state.duration * (1 - this.state.played)} />
-              </td>
-            </tbody>
-            <tbody>
-              <td colSpan="4">
-              </td>
-              <td colSpan="2">
-                <span>
-                  volume
-                </span>
-                <span className="volume-bar">
-                  <input type='range' min={0} max={1} step='any' value={this.state.volume} onChange={this.setVolume} />
-                </span>
-              </td>
-            </tbody>
-          </table>
-          <div className="progress-bar">
-            {progressBar}
-          </div>
-          <div className="progress-bar">
-            <input
-              type='range' min={0} max={1} step='any'
-              value={this.state.played}
-              onMouseDown={this.onSeekMouseDown}
-              onChange={this.onSeekChange}
-              onMouseUp={this.onSeekMouseUp}
-            />
-          </div>
+        <h3><span className="bold-outline">{name}</span></h3>
+        <h4>DURATION: {hours > 0 ? `${hours} H` : ""} {minutes > 0 ? `${minutes} MIN` : ""} {seconds > 0 ? `${seconds} SEC` : ""}</h4>
+        <div className='player-wrapper none'>
+          <ReactPlayer
+            ref={this.ref}
+            url={this.state.url}
+            playing={this.state.playing}
+            volume={this.state.volume}
+            muted={this.state.muted}
+            playbackRate={this.state.playbackRate}
+            onReady={() => console.log('onReady')}
+            onStart={() => console.log('onStart')}
+            onPlay={this.onPlay}
+            onPause={this.onPause}
+            onEnded={() => this.setState({ playing: false})}
+            onProgress={this.onProgress}
+            onDuration={duration => this.setState({ duration })}
+          />
         </div>
-
-        <div className="button" onClick={browserHistory.goBack} >
-          Back
+        <div className="player-container">
+          <div className="row">
+            <div className="twelve columns">
+              {progressBar}
+            </div>
+          </div>
+          <div className="row">
+            <div className="twelve columns progress-bar">
+              <input
+                type='range' min={0} max={1} step='any'
+                value={this.state.played}
+                onMouseDown={this.onSeekMouseDown}
+                onChange={this.onSeekChange}
+                onMouseUp={this.onSeekMouseUp}
+              />
+            </div>
+          </div>
+          <div className="row">
+            <div className="four columns">
+              <button className="circle" onClick={this.stop}><i className="fa fa-stop"></i></button>
+            </div>
+            <div className="four columns">
+              <button className="circle" onClick={this.playPause}>{this.state.playing ? <i className="fa fa-pause"></i> : <i className="fa fa-play"></i>}</button>
+            </div>
+            <div className="four columns">
+              <label className="mute" htmlFor="mute">
+                <input type='checkbox' id="mute" className="hide" checked={this.state.muted} onChange={this.toggleMuted} />{this.state.muted ? <i className="material-icons circle">volume_off</i> : <i className="material-icons circle">volume_up</i> }
+              </label>
+            </div>
+          </div>
+          <div className="row">
+            <div className="four columns">
+              <h4>ELAPSED</h4><Duration seconds={this.state.duration * (this.state.played)} />
+            </div>
+            <div className="four columns">
+              <h4>REMAINING</h4><Duration seconds={this.state.duration * (1 - this.state.played)} />
+            </div>
+            <div className="four columns">
+                <h4>VOLUME</h4>
+                <input type='range' min={0} max={1} step='any' value={this.state.volume} onChange={this.setVolume} />
+            </div>
+          </div>
         </div>
       </div>
     )

@@ -4,11 +4,12 @@ import { Link } from 'react-router';
 const DowntimeTile = props => {
   return (
     <Link to={`/downtimes/${props.id}/edit`}>
-      <div className='tile'>
-        <h1>{props.name}</h1>
-        <p>Start Time: {props.startTime}</p>
-        <p>End Time: {props.endTime}</p>
-        <p>Duration: {props.duration/60} minutes</p>
+      <div className='tile twelve columns'>
+
+        <h1>{props.name.toUpperCase()}</h1>
+        <h4>START TIME: {props.startTime}</h4>
+        <h4>END TIME: {props.endTime}</h4>
+        <h4>DURATION: {props.duration/60} MINUTES</h4>
       </div>
     </Link>
   )
