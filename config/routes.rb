@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :podcasts, only: [:index, :show, :destroy] do
+      resources :podcasts, only: [:index, :show, :destroy, :create] do
         resources :episodes, only: [:index, :show]
       end
       resources :episodes, only: [:index, :show] do
