@@ -28,13 +28,15 @@ class SearchContainer extends Component {
     this.subscribePodcast = this.subscribePodcast.bind(this)
   }
 
-  subscribePodcast(id, artUrl, artistName, collectionName, description, episodes){
+  subscribePodcast(id, artUrl, artistName, collectionName, description, episodes, genres, genreIds){
     let subscribePayload = {
       id: id,
       art_url: artUrl,
       artist_name: artistName,
       collection_name: collectionName,
       description: description,
+      genres: genres,
+      genre_ids: genreIds,
       episodes: episodes
     }
     fetch(`api/v1/users/${this.state.user.id}/podcasts`, {

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170923150504) do
+ActiveRecord::Schema.define(version: 20170924223135) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -57,6 +57,14 @@ ActiveRecord::Schema.define(version: 20170923150504) do
     t.text "description", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "plays", force: :cascade do |t|
+    t.integer "times", default: 0
+    t.float "secondsPlayed", default: 0.0
+    t.float "secondsLoaded", default: 0.0
+    t.integer "episode_id", null: false
+    t.integer "user_id", null: false
   end
 
   create_table "podcasts", force: :cascade do |t|

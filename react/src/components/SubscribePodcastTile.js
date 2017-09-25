@@ -7,7 +7,7 @@ const SubscribePodcastTile = props => {
   }
 
   let subscribeClick = () => {
-    props.subscribePodcast(props.id, props.artUrl, props.artistName, props.collectionName, props.description, props.episodes)
+    props.subscribePodcast(props.id, props.artUrl, props.artistName, props.collectionName, props.description, props.episodes, props.genres, props.genreIds)
   }
   return (
     <li>

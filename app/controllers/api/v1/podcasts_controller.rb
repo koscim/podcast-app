@@ -35,6 +35,21 @@ class Api::V1::PodcastsController < ApplicationController
         artUrl: data["art_url"],
         description: data["description"]
       )
+      if(data["genres"])
+        data["genres"].each_with_index do |genre, index|
+          category = Category.find_by(name: genre)
+          if category.nil?
+            category = Category.create(
+              name: genre,
+              genre_id: data["genre_ids"][index]
+            )
+          end
+          Categorization.create(
+            podcast: podcast,
+            category: category
+          )
+        end
+      end
       data["episodes"].each do |episode|
         if episode["enclosure"]
           if episode["enclosure"]["url"]

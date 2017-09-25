@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TextField from '../components/TextField';
 import Select from '../components/Select';
+import { browserHistory, Link } from 'react-router';
 
 class DowntimeFormContainer extends Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class DowntimeFormContainer extends Component {
       body: JSON.stringify(formPayload)
     }).then(response => response.json())
     this.handleClearForm(event);
+    browserHistory.push('/downtimes')
   }
 
   handleDayCheckboxChange(event) {
@@ -114,8 +116,8 @@ class DowntimeFormContainer extends Component {
 
   render() {
     return(
-      <div className='form-tile container'>
-        <h1>New Downtime</h1>
+      <div className='container homepage'>
+        <h1>NEW DOWNTIME</h1>
         <form onSubmit={this.handleFormSubmit}>
           <div className='row'>
             <div className='six columns'>
@@ -224,9 +226,10 @@ class DowntimeFormContainer extends Component {
           </div>
           <input className="button" type="submit" value="Submit" />
         </form>
+        <div className="button" onClick={browserHistory.goBack} >
+          Back
+        </div>
       </div>
-
-
     )
   }
 }

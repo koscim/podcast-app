@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TextField from '../components/TextField';
 import Select from '../components/Select';
+import { browserHistory, Link } from 'react-router';
 
 class EditDowntimeFormContainer extends Component {
   constructor(props) {
@@ -69,6 +70,7 @@ class EditDowntimeFormContainer extends Component {
       body: JSON.stringify(formPayload)
     }).then(response => response.json())
     this.handleClearForm(event);
+    browserHistory.push('/downtimes')
   }
 
   handleDayCheckboxChange(event) {
@@ -101,13 +103,16 @@ class EditDowntimeFormContainer extends Component {
   }
 
   componentDidMount() {
-    debugger;
-    fetch(`/api/v1/users/`, {
+    fetch(`/api/v1/downtimes/${this.props.params.id}`, {
       credentials: 'same-origin'
     }).then(response => response.json())
     .then(responseBody => {
       this.setState({
-        user: responseBody.current_user
+        user: responseBody.current_user,
+        name: responseBody.downtime.name,
+        startTime: responseBody.downtime.startTime,
+        endTime: responseBody.downtime.endTime,
+        genreSelected: responseBody.downtime.genre
       })
     })
     .catch((thing) => console.log("so sad"))
@@ -115,8 +120,8 @@ class EditDowntimeFormContainer extends Component {
 
   render() {
     return(
-      <div className='form-tile container'>
-        <h1>Edit Downtime</h1>
+      <div className='container homepage'>
+        <h1>EDIT DOWNTIME</h1>
         <form onSubmit={this.handleFormSubmit}>
           <div className='row'>
             <div className='six columns'>
@@ -225,9 +230,10 @@ class EditDowntimeFormContainer extends Component {
           </div>
           <input className="button" type="submit" value="Submit" />
         </form>
+        <div className="button" onClick={browserHistory.goBack} >
+          Back
+        </div>
       </div>
-
-
     )
   }
 }

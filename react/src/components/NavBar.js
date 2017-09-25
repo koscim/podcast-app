@@ -39,12 +39,7 @@ class NavBar extends Component {
             <Link to='/search' className='link'>+</Link>
           </div>
         </div>
-        {this.props.children}
-        <div>
-          <div className="button bottom-bar-section" onClick={browserHistory.goBack} >
-            Back
-          </div>
-        </div>
+          {this.props.children}
       </div>
     )
   }

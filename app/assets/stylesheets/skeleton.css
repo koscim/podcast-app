@@ -50,6 +50,7 @@
 .columns {
   width: 100%;
   float: left;
+  /*margin: 0 5px;*/
   box-sizing: border-box;
 }
 

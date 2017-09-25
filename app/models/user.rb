@@ -4,6 +4,7 @@ class User < ApplicationRecord
   has_many :subscriptions
   has_many :podcasts, through: :subscriptions
   has_many :downtimes
+  has_many :plays
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 end

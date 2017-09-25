@@ -5,17 +5,21 @@ class EpisodeShowContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      episode:{}
+      episode:{},
+      user:{}
     }
   }
 
   componentDidMount() {
     let episodeId = this.props.params.episode_id;
-    fetch(`/api/v1/podcasts/${this.props.params.podcast_id}/episodes/${episodeId}`)
+    fetch(`/api/v1/podcasts/${this.props.params.podcast_id}/episodes/${episodeId}`, {
+      credentials: 'same-origin'
+    })
     .then(response => response.json())
     .then(responseData => {
       this.setState({
-        episode: responseData.episode
+        episode: responseData.episode,
+        user: responseData.current_user
       })
     })
   }
@@ -23,13 +27,13 @@ class EpisodeShowContainer extends Component {
   render() {
     return(
       <div className='container homepage'>
-        Episode Show!!!!
         <EpisodeShow
           key={this.state.episode.id}
           id={this.state.episode.id}
           name={this.state.episode.name}
           duration={this.state.episode.duration}
           feedUrl={this.state.episode.feedUrl}
+          user={this.state.user}
         />
       </div>
     )

@@ -24,6 +24,9 @@ Rails.application.routes.draw do
       resources :podcasts, only: [:index, :show] do
         resources :episodes, only: [:index, :show]
       end
+      resources :episodes, only: [:index, :show] do
+        resources :plays, only: [:create, :update]
+      end
       resources :categories, only: [:index, :show] do
         resources :podcasts, only: [:index, :show]
       end

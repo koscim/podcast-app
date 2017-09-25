@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import PodcastTile from '../components/PodcastTile';
 import Duration from '../components/Duration';
+import { browserHistory, Link } from 'react-router';
 
 class PodcastsIndexContainer extends Component {
   constructor(props) {
@@ -113,7 +114,7 @@ class PodcastsIndexContainer extends Component {
     return (
       <div className='container homepage'>
         <h1>YOUR SUBSCRIPTIONS</h1>
-        <div className="row">
+        <div className="center-subscriptions">
           {podcasts}
         </div>
       </div>

@@ -17,7 +17,14 @@ class Api::V1::DowntimesController < ApplicationController
     render json: parsed_downtimes
   end
   def show
-    render json: Downtime.find(params[:id])
+    downtime = Downtime.find(params[:id])
+    days = downtime.days
+    render json: {
+      downtime: downtime,
+      current_user: current_user,
+      days: days
+     }
+    # render json: Downtime.find(params[:id])
   end
   def create
     data = JSON.parse(request.body.read)
