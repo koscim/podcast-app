@@ -16,18 +16,17 @@ class Api::V1::PlaysController < ApplicationController
   def update
     data = JSON.parse(request.body.read)
     episode = Episode.find(data["episode_id"])
-    play = Play.find_by(episode_id: data["episode_id"])
-    times = play.times
-    # if(data["played"])
-    #   if (data["played"] >= (data["duration"] - 1))
-    #     times = play.times + 1
-    #   end
-    # end
-    play = Play.update(
+    find_play = Play.find_by(episode_id: data["episode_id"])
+    times = find_play.times
+    if(data["times"])
+      times = find_play.times + 1
+    end
+    updated_play = Play.update(
       params[:id],
       secondsPlayed: data["played"],
       secondsLoaded: data["duration"],
       times: times
     )
+    render json: updated_play
   end
 end

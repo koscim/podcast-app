@@ -100,7 +100,10 @@ class Api::V1::DowntimesController < ApplicationController
         found_day_downtime.delete
       end
     end
-
     render json: downtime
+  end
+
+  def destroy
+    downtime = Downtime.find(params[:id])
   end
 end

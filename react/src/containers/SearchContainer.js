@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { browserHistory, Link } from 'react-router';
 import TextField from '../components/TextField';
 import SubscribePodcastTile from '../components/SubscribePodcastTile';
+import LoadingCircle from '../components/LoadingCircle';
 
 class SearchContainer extends Component {
   constructor(props) {
@@ -17,7 +18,8 @@ class SearchContainer extends Component {
       user: {},
       selectedId: null,
       selectedDescription: "",
-      selectedEpisodes: []
+      selectedEpisodes: [],
+      loaded: true
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     // this.handleCategoryCheckboxChange = this.handleCategoryCheckboxChange.bind(this)
@@ -102,6 +104,7 @@ class SearchContainer extends Component {
 
   handleSearch(event) {
     event.preventDefault()
+    loaded: false
     if(this.state.searchCategory){
       // fetch(`/api/v1/users/search_category`,{
       //   credentials: 'same-origin'
@@ -123,7 +126,7 @@ class SearchContainer extends Component {
         credentials: 'same-origin'
       }).then(response => response.json())
       .then(responseBody => {
-        this.setState({ podcasts: responseBody })
+        this.setState({ podcasts: responseBody, loaded: true  })
       })
     }
   }
@@ -211,6 +214,11 @@ class SearchContainer extends Component {
             </tbody>
           </table>
         </form>
+        <h1>
+          <LoadingCircle
+            loaded={this.state.loaded}
+          />
+        </h1>
         {podcasts}
         <div className="button" onClick={browserHistory.goBack} >
           Back

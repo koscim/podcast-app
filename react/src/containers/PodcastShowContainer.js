@@ -10,6 +10,18 @@ class PodcastShowContainer extends Component {
       podcast: {},
       episodes: []
     }
+    this.handleUnsubscribe = this.handleUnsubscribe.bind(this)
+  }
+
+  handleUnsubscribe() {
+    debugger;
+    let podcastId = this.props.params.id
+    fetch(`/api/v1/podcasts/${podcastId}`, {
+      method: 'DELETE',
+      credentials: 'same-origin'
+    }).then(response => response.json())
+    .catch((thing) => console.log("so sad"))
+    browserHistory.push('/podcasts')
   }
 
   componentDidMount() {
@@ -48,6 +60,9 @@ class PodcastShowContainer extends Component {
     return(
       <div className='container'>
         Podcast Show!!!!
+        <div className="button" onClick={this.handleUnsubscribe}>
+          Unsubscribe
+        </div>
         <PodcastShow
           key={this.state.podcast.id}
           id={this.state.podcast.id}

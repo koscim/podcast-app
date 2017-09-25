@@ -102,6 +102,12 @@ class Api::V1::PodcastsController < ApplicationController
       render json: podcast
   end
 
+  def destroy
+    podcast = Podcast.find(params[:id])
+    subscription = Subscription.find_by(podcast: podcast, user: current_user)
+    subscription.destroy
+  end
+
   def refresh
 
   end

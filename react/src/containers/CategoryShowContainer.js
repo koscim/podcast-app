@@ -135,10 +135,12 @@ class CategoryShowContainer extends Component {
     })
     return(
       <div className='container homepage'>
-        Genres
-        <LoadingCircle
-          loaded={this.state.loaded}
-        />
+        <span>Genres</span>
+        <h1>
+          <LoadingCircle
+            loaded={this.state.loaded}
+          />
+        </h1>
         <CategoryShow
           key={this.state.category.id}
           id={this.state.category.id}

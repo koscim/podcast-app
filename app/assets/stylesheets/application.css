@@ -821,3 +821,7 @@ svg rect{
 .center-subscriptions {
   /*position: absolute;*/
 }
+
+.tile-content {
+  text-align: center;
+}

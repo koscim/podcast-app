@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactPlayer from 'react-player';
 import EpisodeTile from '../components/EpisodeTile';
 import EpisodeShow from '../components/EpisodeShow';
+import LoadingCircle from '../components/LoadingCircle';
 
 class HomeShowContainer extends Component {
   constructor(props) {
@@ -12,7 +13,8 @@ class HomeShowContainer extends Component {
       downtime: {},
       episodes: [],
       shorter_episodes: [],
-      longer_episodes: []
+      longer_episodes: [],
+      loaded: true
     }
     this.generateSuggestions = this.generateSuggestions.bind(this)
   }
@@ -62,6 +64,7 @@ class HomeShowContainer extends Component {
   }
 
   generateSuggestions(){
+    this.setState({ loaded: false })
     let currentTime = new Date().toLocaleString();
     currentTime = currentTime.replace(/\//g,"-")
     fetch(`/api/v1/users/${this.state.user.id}/recommend/${currentTime}`, {
@@ -72,7 +75,8 @@ class HomeShowContainer extends Component {
         downtime: responseBody.downtime,
         episodes: responseBody.episodes,
         shorter_episodes: responseBody.shorter_episodes,
-        longer_episodes: responseBody.longer_episodes
+        longer_episodes: responseBody.longer_episodes,
+        loaded: true
       })
     })
     .catch((thing) => console.log("so sad"))
@@ -138,6 +142,11 @@ class HomeShowContainer extends Component {
         <h4>CLICK BELOW TO GENERATE YOUR CURATED LIST OF EPISODES</h4>
         <button className="centered" onClick={this.generateSuggestions}>Generate Suggestions</button>
         <br />
+        <h1>
+          <LoadingCircle
+            loaded={this.state.loaded}
+          />
+        </h1>
         {this.state.downtime.name ? <h3>WE&#39;VE CURATED A PODCAST LIST FOR <span className="bold-outline">{this.state.downtime.name.toUpperCase()}</span>.</h3> : "" }
         <br />
         {this.state.shorter_episodes.length > 0 ? <h3>HERE ARE SHORTER EPISODES: </h3> : ""}

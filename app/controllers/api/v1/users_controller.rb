@@ -73,20 +73,21 @@ class Api::V1::UsersController < ApplicationController
     # downtimes.select { |downtime| }
     duration = selected_downtimes[0].duration
     episodes = []
+    # genre_podcasts = podcasts.select { |podcast| podcast.genres.select{}}
     podcasts.each do |podcast|
-      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f != 0.0 }
+      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f != 0.0  && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
       episodes += selected_episodes
     end
 
     shorter_episodes = []
     podcasts.each do |podcast|
-      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration/3 && episode.duration.to_f != 0.0 }
+      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration/3 && episode.duration.to_f != 0.0 && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
       shorter_episodes += selected_episodes
     end
 
     longer_episodes = []
     podcasts.each do |podcast|
-      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f > duration/2}
+      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f > duration/2 && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
       longer_episodes += selected_episodes
     end
 

@@ -36,6 +36,7 @@ class EpisodeShow extends Component {
     this.onSeekChange = this.onSeekChange.bind(this)
     this.onSeekMouseUp = this.onSeekMouseUp.bind(this)
     this.setVolume = this.setVolume.bind(this)
+    this.onEnded = this.onEnded.bind(this)
     this.ref = this.ref.bind(this)
   }
 
@@ -90,6 +91,27 @@ class EpisodeShow extends Component {
     // })
   }
 
+  onEnded(){
+    console.log("ended")
+    let progressPayload = {
+      episode_id: this.props.id,
+      played: this.state.played,
+      duration: this.state.loaded,
+      times: true
+    }
+    fetch(`/api/v1/episodes/${this.props.id}/plays/${this.state.playProgress.id}`, {
+      method: 'PATCH',
+      credentials: 'same-origin',
+      body: JSON.stringify(progressPayload)
+    }).then(response => response.json())
+    .then(responseBody => {
+      this.setState({ playing: false })
+      // console.log(`onProgresssetState played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
+
+      // this.setState(state)
+    })
+  }
+
   playPause(){
     this.setState({ url: this.props.feedUrl, playing: !this.state.playing })
   }
@@ -126,22 +148,22 @@ class EpisodeShow extends Component {
     // })
     if(this.ref){
       if(!this.state.seeking){
-        console.log(`onProgress`)
-        let progressPayload = {
-          episode_id: this.props.id,
-          played: this.state.played,
-          duration: this.state.loaded
-        }
-        fetch(`/api/v1/episodes/${this.props.id}/plays/${this.state.playProgress.id}`, {
-          method: 'PATCH',
-          credentials: 'same-origin',
-          body: JSON.stringify(progressPayload)
-        }).then(response => response.json())
-        .then(responseBody => {
-          console.log(`onProgresssetState played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
-          this.setState(state)
-        })
-        // this.setState(state)
+        // console.log(`onProgress`)
+        // let progressPayload = {
+        //   episode_id: this.props.id,
+        //   played: this.state.played,
+        //   duration: this.state.loaded
+        // }
+        // fetch(`/api/v1/episodes/${this.props.id}/plays/${this.state.playProgress.id}`, {
+        //   method: 'PATCH',
+        //   credentials: 'same-origin',
+        //   body: JSON.stringify(progressPayload)
+        // }).then(response => response.json())
+        // .then(responseBody => {
+        //   console.log(`onProgresssetState played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
+        //   // this.setState(state)
+        // })
+        this.setState(state)
       }
     }
   }
@@ -181,8 +203,8 @@ class EpisodeShow extends Component {
       console.log(`componentdidmountsetstate played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
       this.setState({
         playProgress: responseBody,
-        played: responseBody.secondsPlayed,
-        loaded: responseBody.secondsLoaded
+        // played: responseBody.secondsPlayed,
+        // loaded: responseBody.secondsLoaded
       })
     })
   }
@@ -227,7 +249,7 @@ class EpisodeShow extends Component {
               onStart={this.start}
               onPlay={this.onPlay}
               onPause={this.onPause}
-              onEnded={() => this.setState({ playing: false})}
+              onEnded={this.onEnded}
               onProgress={this.onProgress}
               onDuration={duration => this.setState({ duration })}
             />
