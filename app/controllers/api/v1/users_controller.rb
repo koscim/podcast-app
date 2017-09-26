@@ -6,9 +6,9 @@ class Api::V1::UsersController < ApplicationController
     render json: user_data
     # render json: User.all
   end
-  # def show
-  #   render json: User.find(params[:id])
-  # end
+  def show
+    render json: User.find(params[:id])
+  end
   def search
     OpenSSL::SSL::SSLContext.new :TLSv1
     name = params[:name]
@@ -71,32 +71,68 @@ class Api::V1::UsersController < ApplicationController
     # selected_downtime = day_parsed_downtimes.select { |downtime| downtime.startTime.strftime("%H%M%S%N") > time.strftime("%H%M%S%N") }
     # selected_downtime = downtimes.select { |downtime| ((downtime.startTime - 3600) > parsed_time) && ((downtime.endTime + 3600) < (parsed_time + (downtime.duration))) }
     # downtimes.select { |downtime| }
-    duration = selected_downtimes[0].duration
-    episodes = []
-    # genre_podcasts = podcasts.select { |podcast| podcast.genres.select{}}
-    podcasts.each do |podcast|
-      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f != 0.0  && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
-      episodes += selected_episodes
-    end
+    if selected_downtimes.count != 0
+      duration = selected_downtimes[0].duration
+      # genre_podcasts = podcasts.select { |podcast| podcast.genres.select{}}
+      genre_podcasts = podcasts.select{ |podcast| podcast.categories.select{ |category| category.name == selected_downtimes[0].genre } != [] }
+      if genre_podcasts!= []
+        episodes = []
+        genre_podcasts.each do |podcast|
+          selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f != 0.0  && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
+          episodes += selected_episodes
+        end
 
-    shorter_episodes = []
-    podcasts.each do |podcast|
-      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration/3 && episode.duration.to_f != 0.0 && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
-      shorter_episodes += selected_episodes
-    end
+        shorter_episodes = []
+        genre_podcasts.each do |podcast|
+          selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration/3 && episode.duration.to_f != 0.0 && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
+          shorter_episodes += selected_episodes
+        end
 
-    longer_episodes = []
-    podcasts.each do |podcast|
-      selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f > duration/2 && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
-      longer_episodes += selected_episodes
-    end
+        longer_episodes = []
+        genre_podcasts.each do |podcast|
+          selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f > duration/2 && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
+          longer_episodes += selected_episodes
+        end
+      else
+        episodes = []
+        podcasts.each do |podcast|
+          selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f != 0.0  && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
+          episodes += selected_episodes
+        end
 
-    downtime_data = {
-      downtime: selected_downtimes[0],
-      episodes: episodes,
-      shorter_episodes: shorter_episodes.sample(3),
-      longer_episodes: longer_episodes.sample(3)
-    }
-    render json: downtime_data
+        shorter_episodes = []
+        podcasts.each do |podcast|
+          selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration/3 && episode.duration.to_f != 0.0 && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
+          shorter_episodes += selected_episodes
+        end
+
+        longer_episodes = []
+        podcasts.each do |podcast|
+          selected_episodes = podcast.episodes.select { |episode| episode.duration.to_f < duration && episode.duration.to_f > duration/2 && (episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [])}
+          longer_episodes += selected_episodes
+        end
+      end
+
+      downtime_data = {
+        downtime: selected_downtimes[0],
+        episodes: episodes,
+        shorter_episodes: shorter_episodes.sample(3),
+        longer_episodes: longer_episodes.sample(3)
+      }
+      render json: downtime_data
+    else
+      episodes = []
+      podcasts.each do |podcast|
+        selected_episodes = podcast.episodes.select { |episode| episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [] }
+        episodes += selected_episodes
+      end
+      data_without_downtime = {
+        downtime: {},
+        episodes: episodes.sample(3),
+        shorter_episodes: [],
+        longer_episodes: []
+      }
+      render json: data_without_downtime
+    end
   end
 end

@@ -97,18 +97,17 @@ class HomeShowContainer extends Component {
   }
 
   render() {
-    // let episodes = this.state.episodes.map(episode => {
-    //   return(
-    //     <EpisodeTile
-    //       key={episode.id}
-    //       id={episode.id}
-    //       name={episode.name}
-    //       duration={episode.duration}
-    //       feedUrl={episode.feedUrl}
-    //       imageUrl={episode.imageUrl}
-    //       podcast_id={episode.podcast_id}
-    //     />
-    //   )
+    let episodes = this.state.episodes.map(episode => {
+      return(
+        <EpisodeShow
+          key={episode.id}
+          id={episode.id}
+          name={episode.name}
+          duration={episode.duration}
+          feedUrl={episode.feedUrl}
+        />
+      )
+    })
     let shorter_episodes = this.state.shorter_episodes.map(episode => {
       return(
         <EpisodeShow
@@ -148,9 +147,11 @@ class HomeShowContainer extends Component {
           />
         </h1>
         {this.state.downtime.name ? <h3>WE&#39;VE CURATED A PODCAST LIST FOR <span className="bold-outline">{this.state.downtime.name.toUpperCase()}</span>.</h3> : "" }
+        {this.state.episodes.length == 3 ? <p>YOU HAVEN&#39;T SCHEDULED A DOWNTIME FOR YOUR CURRENT TIME. HERE ARE SOME EPISODES FROM YOUR SUBSCRIPTIONS TO LISTEN TO ANYWAY.</p> : "" }
         <br />
         {this.state.shorter_episodes.length > 0 ? <h3>HERE ARE SHORTER EPISODES: </h3> : ""}
         {shorter_episodes}
+        {this.state.episodes.length == 3 ? episodes : "" }
         <br />
         {this.state.longer_episodes.length > 0 ? <h3>HERE IS A LONGER EPISODE: </h3> : ""}
         {longer_episodes}

@@ -3,7 +3,10 @@ require 'net/http'
 
 class Api::V1::CategoriesController < ApplicationController
   def index
-    render json: Category.all
+    render json: {
+      categories: Category.all,
+      user: current_user
+    }
     # begin
     #   itunes_response = Net::HTTP.get_response(URI.parse('https://itunes.apple.com/search?term=podcast&genreId=1402&limit=40')).body
     # rescue Timeout::Error, Errno::EINVAL, Errno::ECONNRESET, EOFError, Net::HTTPBadResponse, Net::HTTPHeaderSyntaxError, Net::ProtocolError => e

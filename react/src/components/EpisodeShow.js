@@ -64,11 +64,11 @@ class EpisodeShow extends Component {
   }
 
   start(){
-    console.log("OnStart")
+    // console.log("OnStart")
   }
 
   load(){
-    console.log("onReady")
+    // console.log("onReady")
     // let progressPayload = {
     //   episode_id: this.props.id
     // }
@@ -92,7 +92,7 @@ class EpisodeShow extends Component {
   }
 
   onEnded(){
-    console.log("ended")
+    // console.log("ended")
     let progressPayload = {
       episode_id: this.props.id,
       played: this.state.played,
@@ -193,14 +193,14 @@ class EpisodeShow extends Component {
     let progressPayload = {
       episode_id: this.props.id
     }
-    console.log("componentdidmount")
+    // console.log("componentdidmount")
     fetch(`/api/v1/episodes/${this.props.id}/plays`, {
       method: 'POST',
       credentials: 'same-origin',
       body: JSON.stringify(progressPayload)
     }).then(response => response.json())
     .then(responseBody => {
-      console.log(`componentdidmountsetstate played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
+      // console.log(`componentdidmountsetstate played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
       this.setState({
         playProgress: responseBody,
         // played: responseBody.secondsPlayed,
@@ -210,8 +210,6 @@ class EpisodeShow extends Component {
   }
 
   render() {
-    console.log(`played ${this.state.played}`)
-    console.log(`loaded ${this.state.loaded}`)
     let name;
     if(this.props.name){
       name = this.props.name.split(",")[0].replace("[", "").replace("]", "").toUpperCase()

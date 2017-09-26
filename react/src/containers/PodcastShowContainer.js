@@ -14,7 +14,6 @@ class PodcastShowContainer extends Component {
   }
 
   handleUnsubscribe() {
-    debugger;
     let podcastId = this.props.params.id
     fetch(`/api/v1/podcasts/${podcastId}`, {
       method: 'DELETE',

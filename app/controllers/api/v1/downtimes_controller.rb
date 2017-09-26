@@ -7,14 +7,19 @@ class Api::V1::DowntimesController < ApplicationController
     parsed_downtimes = []
     downtimes.each do |downtime|
       parsed_downtime = {
-        downtime: downtime,
+        id: downtime.id,
+        downtime: downtime.name,
         startTime: Time.parse(downtime.startTime).strftime("%-I:%M %p"),
         endTime: Time.parse(downtime.endTime).strftime("%-I:%M %p"),
         duration: downtime.duration
       }
       parsed_downtimes << parsed_downtime
     end
-    render json: parsed_downtimes
+    downtime_data = {
+      downtimes: parsed_downtimes,
+      user: current_user
+    }
+    render json: downtime_data
   end
   def show
     downtime = Downtime.find(params[:id])
@@ -105,5 +110,16 @@ class Api::V1::DowntimesController < ApplicationController
 
   def destroy
     downtime = Downtime.find(params[:id])
+    days = downtime.days
+    days.each do |day|
+      found_day_downtime = DayDowntime.find_by(
+        day: day,
+        downtime: downtime
+      )
+      found_day_downtime.delete
+    end
+    downtime.delete
+    downtimes = Downtime.where(user: current_user)
+    render json: downtimes
   end
 end

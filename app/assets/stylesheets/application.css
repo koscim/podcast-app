@@ -642,8 +642,8 @@ body {
   text-align: center;
 }*/
 p {
-  font-size: 28px;
-  letter-spacing: 2px;
+  /*font-size: 28px;
+  letter-spacing: 2px;*/
   margin: 0px auto;
   padding: 0;
   width: 50%;

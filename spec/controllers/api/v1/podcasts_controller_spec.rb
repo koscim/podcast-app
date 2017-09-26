@@ -96,7 +96,7 @@ RSpec.describe Api::V1::PodcastsController, type: :controller do
 
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
-      puts returned_json
+
       expect(returned_json["podcast"]["collectionId"]).to eq '2'
       expect(returned_json["podcast"]["artistName"]).to eq 'Netflix'
       expect(returned_json["podcast"]["collectionName"]).to eq 'Bojack Horseman'

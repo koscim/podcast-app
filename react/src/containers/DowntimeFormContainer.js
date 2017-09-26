@@ -15,6 +15,7 @@ class DowntimeFormContainer extends Component {
       genres: ["Arts", "Comedy", "Education", "Kids & Family", "Health", "TV & Film", "Music", "News & Politics", "Religion & Spirituality",
               "Science & Medicine", "Sports & Recreation", "Technology", "Business", "Game & Hobbies", "Society & Culture", "Government & Organizations"],
       genreSelected: '',
+      categories: [],
       sunday: false,
       monday: false,
       tuesday: false,
@@ -103,15 +104,36 @@ class DowntimeFormContainer extends Component {
   }
 
   componentDidMount() {
-    fetch(`/api/v1/users/`, {
-      credentials: 'same-origin'
-    }).then(response => response.json())
+    // fetch(`/api/v1/users/`, {
+    //   credentials: 'same-origin'
+    // }).then(response => response.json())
+    // .then(responseBody => {
+    //   this.setState({
+    //     user: responseBody.current_user
+    //   })
+    // })
+    // .catch((thing) => console.log("so sad"))
+    fetch(`/api/v1/categories/`)
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
     .then(responseBody => {
+      let categories = []
+      responseBody.categories.forEach((category) => {
+        categories.push(category.name)
+      })
       this.setState({
-        user: responseBody.current_user
+        categories: categories,
+        user: responseBody.user
       })
     })
-    .catch((thing) => console.log("so sad"))
   }
 
   render() {
@@ -151,7 +173,7 @@ class DowntimeFormContainer extends Component {
                 handlerFunction={this.handleInputChange}
                 name='genreSelected'
                 label='Genre'
-                options={this.state.genres}
+                options={this.state.categories}
                 selectedOption={this.state.genreSelected}
               />
             </div>

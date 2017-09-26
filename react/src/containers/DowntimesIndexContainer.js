@@ -9,6 +9,38 @@ class DowntimesIndexContainer extends Component {
       downtimes: [],
       user: {}
     }
+    this.handleDelete = this.handleDelete.bind(this)
+  }
+
+  handleDelete(id){
+    fetch(`/api/v1/users/${this.state.user.id}/downtimes/${id}`, {
+      method: 'DELETE',
+      credentials: 'same-origin'
+    }).then(response => response.json())
+    .catch((thing) => console.log("so sad"))
+    this.setState({ downtimes: this.state.downtimes.filter(downtime => downtime.id !== id)})
+  }
+
+  componentWillMount() {
+    fetch(`/api/v1/downtimes`, {
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(responseBody => {
+      this.setState({
+        downtimes: responseBody.downtimes,
+        user: responseBody.user
+      })
+    })
   }
 
   componentDidMount() {
@@ -28,7 +60,7 @@ class DowntimesIndexContainer extends Component {
     .then(responseBody => {
       this.setState({
         downtimes: responseBody.downtimes,
-        user: responseBody.downtimes
+        user: responseBody.user
       })
     })
   }
@@ -37,12 +69,13 @@ class DowntimesIndexContainer extends Component {
       let downtimes = this.state.downtimes.map(downtime => {
         return(
           <DowntimeTile
-            key={downtime.downtime.id}
-            id={downtime.downtime.id}
-            name={downtime.downtime.name}
+            key={downtime.id}
+            id={downtime.id}
+            name={downtime.downtime}
             startTime={downtime.startTime}
             endTime={downtime.endTime}
             duration={downtime.duration}
+            handleDelete={this.handleDelete}
           />
         )
       })

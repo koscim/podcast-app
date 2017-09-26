@@ -105,30 +105,12 @@ class SearchContainer extends Component {
   handleSearch(event) {
     event.preventDefault()
     loaded: false
-    if(this.state.searchCategory){
-      // fetch(`/api/v1/users/search_category`,{
-      //   credentials: 'same-origin'
-      // })
-      // .then(response => {
-      //   if(response.ok) {
-      //     return response;
-      //   } else {
-      //     let errorMessage = `${response.status} (${response.statusText})`,
-      //       error = new Error(errorMessage);
-      //     throw(error);
-      //   }
-      // }).then(response => response.json())
-      // .then(responseBody => {
-      //   debugger;
-      // })
-    } else if(this.state.searchName){
-      fetch(`api/v1/users/${this.state.user.id}/search/${this.state.search}`, {
-        credentials: 'same-origin'
-      }).then(response => response.json())
-      .then(responseBody => {
-        this.setState({ podcasts: responseBody, loaded: true  })
-      })
-    }
+    fetch(`api/v1/users/${this.state.user.id}/search/${this.state.search}`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+    .then(responseBody => {
+      this.setState({ podcasts: responseBody, loaded: true  })
+    })
   }
 
   componentDidMount() {
@@ -200,16 +182,6 @@ class SearchContainer extends Component {
               />
             </tbody>
             <tbody>
-              <label>
-                <input
-                  name="searchName"
-                  type="checkbox"
-                  checked={this.state.searchName}
-                  onChange={this.handleNameCheckboxChange}
-                />name
-              </label>
-            </tbody>
-            <tbody>
               <input className="button" type="submit" value="Submit" />
             </tbody>
           </table>
@@ -229,7 +201,16 @@ class SearchContainer extends Component {
 }
 
 export default SearchContainer;
-
+// <tbody>
+//   <label>
+//     <input
+//       name="searchName"
+//       type="checkbox"
+//       checked={this.state.searchName}
+//       onChange={this.handleNameCheckboxChange}
+//     />name
+//   </label>
+// </tbody>
 // <tbody>
 //   <label>
 //     <input

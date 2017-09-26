@@ -35,7 +35,7 @@ Rails.application.routes.draw do
         get "/fetch/:id", to: 'users#fetch'
         get "/recommend/:time", to: 'users#recommend'
         resources :podcasts, only: [:index, :show, :create]
-        resources :downtimes, only: [:index, :show, :create, :edit, :update]
+        resources :downtimes, only: [:index, :show, :create, :edit, :update, :destroy]
       end
       resources :downtimes, only: [:index, :show]
     end

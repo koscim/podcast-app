@@ -107,12 +107,37 @@ class EditDowntimeFormContainer extends Component {
       credentials: 'same-origin'
     }).then(response => response.json())
     .then(responseBody => {
+      let setMonday, setTuesday, setWednesday, setThursday, setFriday, setSaturday, setSunday = false;
+      responseBody.days.forEach((day) => {
+        if(day.day == "Monday"){
+          setMonday = true;
+        } else if(day.day == "Tuesday"){
+          setTuesday = true;
+        } else if(day.day == "Wednesday"){
+          setWednesday = true;
+        } else if(day.day == "Thursday"){
+          setThursday = true;
+        } else if(day.day == "Friday"){
+          setFriday = true;
+        } else if(day.day == "Saturday"){
+          setSaturday = true;
+        } else if(day.day == "Sunday"){
+          setSunday = true;
+        }
+      })
       this.setState({
         user: responseBody.current_user,
         name: responseBody.downtime.name,
         startTime: responseBody.downtime.startTime,
         endTime: responseBody.downtime.endTime,
-        genreSelected: responseBody.downtime.genre
+        genreSelected: responseBody.downtime.genre,
+        sunday: setSunday,
+        monday: setMonday,
+        tuesday: setTuesday,
+        wednesday: setWednesday,
+        thursday: setThursday,
+        friday: setFriday,
+        saturday: setSaturday
       })
     })
     .catch((thing) => console.log("so sad"))
