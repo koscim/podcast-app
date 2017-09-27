@@ -8,7 +8,8 @@ class PodcastsIndexContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      podcasts: []
+      podcasts: [],
+      hasPodcasts: true
     }
   }
 
@@ -44,8 +45,15 @@ class PodcastsIndexContainer extends Component {
     })
     .then(response => response.json())
     .then(responseBody => {
+      let hasPodcasts;
+      if(responseBody.podcasts.length == 0){
+        hasPodcasts = false;
+      } else {
+        hasPodcasts = true;
+      }
       this.setState({
-        podcasts: responseBody.podcasts
+        podcasts: responseBody.podcasts,
+        hasPodcasts: hasPodcasts
       })
     })
   }
@@ -115,7 +123,7 @@ class PodcastsIndexContainer extends Component {
       <div className='container homepage'>
         <h1>YOUR SUBSCRIPTIONS</h1>
         <div>
-          {this.state.podcasts.length == 0 ? <p>IT LOOKS LIKE YOU DON&#39;T HAVE ANY SUBSCRIPTIONS. SEARCH FOR PODCASTS BY CLICKING ON + AT THE TOP OR BROWSE BY GENRE  BY CLICKING ON GENRES.</p> : ""}
+          {this.state.hasPodcasts == false ? <p>IT LOOKS LIKE YOU DON&#39;T HAVE ANY SUBSCRIPTIONS. SEARCH FOR PODCASTS BY CLICKING ON + AT THE TOP OR BROWSE BY GENRE  BY CLICKING ON GENRES.</p> : ""}
         </div>
         <div className="center-subscriptions">
           {podcasts}
