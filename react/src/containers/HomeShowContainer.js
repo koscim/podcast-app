@@ -14,7 +14,8 @@ class HomeShowContainer extends Component {
       episodes: [],
       shorter_episodes: [],
       longer_episodes: [],
-      loaded: true
+      loaded: true,
+      suggestions: []
     }
     this.generateSuggestions = this.generateSuggestions.bind(this)
   }
@@ -153,10 +154,10 @@ class HomeShowContainer extends Component {
         {shorter_episodes}
         {this.state.episodes.length == 3 ? episodes : "" }
         <br />
-        {this.state.longer_episodes.length > 0 ? <h3>HERE IS A LONGER EPISODE: </h3> : ""}
+        {this.state.longer_episodes.length > 0 ? <h3>HERE ARE LONGER EPISODES: </h3> : ""}
         {longer_episodes}
         <br />
-        {this.state.longer_episodes.length > 0 ? <h3>Based on your subscriptions, you might enjoy this new podcast:</h3> : ""}
+        {this.state.suggestions.length > 0 ? <h3>Based on your subscriptions, you might enjoy this new podcast:</h3> : ""}
         <br />
       </div>
     )
