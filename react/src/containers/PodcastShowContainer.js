@@ -58,7 +58,6 @@ class PodcastShowContainer extends Component {
     })
     return(
       <div className='container'>
-        Podcast Show!!!!
         <div className="button" onClick={this.handleUnsubscribe}>
           Unsubscribe
         </div>

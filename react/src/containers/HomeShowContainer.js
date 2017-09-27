@@ -148,6 +148,7 @@ class HomeShowContainer extends Component {
         </h1>
         {this.state.downtime.name ? <h3>WE&#39;VE CURATED A PODCAST LIST FOR <span className="bold-outline">{this.state.downtime.name.toUpperCase()}</span>.</h3> : "" }
         {this.state.episodes.length == 3 ? <p>YOU HAVEN&#39;T SCHEDULED A DOWNTIME FOR YOUR CURRENT TIME. HERE ARE SOME EPISODES FROM YOUR SUBSCRIPTIONS TO LISTEN TO ANYWAY.</p> : "" }
+        {this.state.episodes.length == 0 ? <p>IT LOOKS LIKE YOU HAVEN&#39;T SUBSCRIBED TO ANY PODCASTS. BEFORE WE CAN RECOMMEND YOU EPISODES, YOU MUST SUBSCRIBE TO PODCASTS. CLICK + IN THE TOP RIGHT CORNER TO SEARCH FOR PODCASTS OR BROWSE BY GENRE BY CLICKING ON GENRES</p> : "" }
         <br />
         {this.state.shorter_episodes.length > 0 ? <h3>HERE ARE SHORTER EPISODES: </h3> : ""}
         {shorter_episodes}
