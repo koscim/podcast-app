@@ -113,7 +113,9 @@ class DowntimeFormContainer extends Component {
     //   })
     // })
     // .catch((thing) => console.log("so sad"))
-    fetch(`/api/v1/categories/`)
+    fetch(`/api/v1/categories/`, {
+      credentials: 'same-origin'
+    })
     .then(response => {
       if (response.ok) {
         return response;
