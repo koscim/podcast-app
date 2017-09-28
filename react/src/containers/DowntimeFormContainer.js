@@ -104,15 +104,6 @@ class DowntimeFormContainer extends Component {
   }
 
   componentDidMount() {
-    // fetch(`/api/v1/users/`, {
-    //   credentials: 'same-origin'
-    // }).then(response => response.json())
-    // .then(responseBody => {
-    //   this.setState({
-    //     user: responseBody.current_user
-    //   })
-    // })
-    // .catch((thing) => console.log("so sad"))
     fetch(`/api/v1/categories/`, {
       credentials: 'same-origin'
     })
@@ -259,6 +250,3 @@ class DowntimeFormContainer extends Component {
 }
 
 export default DowntimeFormContainer;
-
-// genres: ['Design', 'Fashion & Beauty', 'Food', 'Literature', 'Performing Arts', 'Visual Arts',
-//             'Business News', 'Careers', 'Investing', 'Management & Marketing', 'Shopping', ],

@@ -64,22 +64,13 @@ class EpisodeShow extends Component {
   }
 
   start(){
-    // console.log("OnStart")
     this.player.seekTo(parseFloat(this.state.played))
   }
 
   load(){
-    // console.log("onReady")
-
-
-    // this.setState({
-    //   played: this.state.playProgress.secondsPlayed,
-    //   loaded: this.state.playProgress.secondsLoaded
-    // })
   }
 
   onEnded(){
-    // console.log("ended")
     let progressPayload = {
       episode_id: this.props.id,
       played: this.state.played,
@@ -93,9 +84,6 @@ class EpisodeShow extends Component {
     }).then(response => response.json())
     .then(responseBody => {
       this.setState({ playing: false })
-      // console.log(`onProgresssetState played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
-
-      // this.setState(state)
     })
   }
 
@@ -116,26 +104,13 @@ class EpisodeShow extends Component {
   }
 
   onPause(){
-    // let progressPayload = {
-    //   episode_id: this.props.id,
-    //   played: this.state.played,
-    //   duration: this.state.loaded
-    // }
-    // fetch(`/api/v1/episodes/${this.props.id}/plays/${this.state.playProgress.id}`, {
-    //   method: 'PATCH',
-    //   credentials: 'same-origin',
-    //   body: JSON.stringify(progressPayload)
-    // }).then(response => response.json())
     this.setState({ playing: false })
   }
 
   onProgress(state){
-    // this.setState({
-    //   played: this.state.playProgress.secondsPlayed
-    // })
+
     if(this.ref){
       if(!this.state.seeking){
-        // console.log(`onProgress`)
         let progressPayload = {
           episode_id: this.props.id,
           played: state.played,
@@ -147,12 +122,8 @@ class EpisodeShow extends Component {
           body: JSON.stringify(progressPayload)
         }).then(response => response.json())
         .then(responseBody => {
-          console.log(`onProgresssetState played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
-          // this.setState(state)
-          debugger;
           this.setState(state)
         })
-        // this.setState(state)
       }
     }
   }
@@ -182,14 +153,12 @@ class EpisodeShow extends Component {
     let progressPayload = {
       episode_id: this.props.id
     }
-    // console.log("componentdidmount")
     fetch(`/api/v1/episodes/${this.props.id}/plays`, {
       method: 'POST',
       credentials: 'same-origin',
       body: JSON.stringify(progressPayload)
     }).then(response => response.json())
     .then(responseBody => {
-      // console.log(`componentdidmountsetstate played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
       let played, loaded;
       if(responseBody.secondsPlayed == null) {
         played = 0;
@@ -204,8 +173,6 @@ class EpisodeShow extends Component {
         playProgress: responseBody,
         played: played,
         loaded: loaded
-        // played: responseBody.secondsPlayed,
-        // loaded: responseBody.secondsLoaded
       })
     })
   }
@@ -225,11 +192,6 @@ class EpisodeShow extends Component {
       totalTime={this.state.duration}
       currentTime={this.state.isSeeking ? this.state.seekTime : (this.state.duration * this.state.played)}
       isSeekable={false}
-      // onSeek={this.handleSeek}
-      // onSeekStart={() => console.log('onSeekStart')}
-      // onSeekEnd={this.handleSeekEnd}
-      // onIntent={() => console.log('onIntent')}
-      // style={{color: 'white', height: '20px', width: '200px', display: 'inline-block', visibility: 'visible'}}
     />
     return(
       <div className='container'>
@@ -303,25 +265,3 @@ class EpisodeShow extends Component {
 }
 
 export default EpisodeShow;
-
-// <ReactPlayer url={this.props.feedUrl}
-//   playing
-// />
-
-// "http://feeds.soundcloud.com/stream/273116676-nerd-cast-episode-6-comic-con-review-cpt-hydra-und-die-1.mp3"
-
-
-// <h2>Controls</h2>
-//     <h3>Load</h3>
-//     {this.renderLoadButton(this.props.feedUrl, "Load Episode")}
-//     <button onClick={this.stop}>Stop</button>
-//     <button onClick={this.playPause}>{this.state.playing ? 'Pause' : 'Play'}</button>
-//     <label>
-//       <input type='checkbox' checked={this.state.muted} onChange={this.toggleMuted} /> Muted
-//     </label>
-//     <h3>playing</h3>{this.state.playing ? 'true' : 'false'}
-//     <h3>volume</h3>{this.state.volume.toFixed(3)}
-//     <h3>played</h3>{this.state.played.toFixed(3)}
-//     <h3>loaded</h3>{this.state.loaded.toFixed(3)}
-//     <h3>duration</h3><Duration seconds={this.state.duration} />
-//     <h3>remaining</h3><Duration seconds={this.state.duration * (1 - this.state.played)} />

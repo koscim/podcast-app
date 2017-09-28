@@ -33,13 +33,6 @@ class PodcastShowContainer extends Component {
         episodes: responseData.podcast.episodes
       })
     })
-    // fetch(`/api/v1/podcasts/${podcastId}/episodes`)
-    // .then(response => response.json())
-    // .then(responseData => {
-    //   this.setState({
-    //     episodes: responseData.episodes
-    //   })
-    // })
   }
 
   render() {

@@ -24,7 +24,6 @@ class CategoryShowContainer extends Component {
 
   changeState(id){
     if (id != this.state.selectedId) {
-      // this.setState({ selectedId: id })
       this.fetchDescription(id)
     } else {
       this.setState({ selectedId: null })
@@ -36,15 +35,11 @@ class CategoryShowContainer extends Component {
        credentials: 'same-origin'
     }).then(response => response.json())
     .then(responseBody => {
-      // description = responseBody.description
-      // if(responseBody.description !== this.state.selectedDescription){
       this.setState({ selectedId: id, selectedDescription: responseBody.description, selectedEpisodes: responseBody.episodes_data })
-      // }
     })
     .catch(error => {
       this.setState({ selectedId: id, selectedDescription: "Error: Unreadable Feed" })
     })
-    // debugger;
   }
 
   subscribePodcast(id, artUrl, artistName, collectionName, description, episodes, genres, genreIds){
@@ -82,10 +77,6 @@ class CategoryShowContainer extends Component {
         loaded: true
       })
     })
-    // fetch(`https://itunes.apple.com/search?term=podcast&genreId=1402&limit=200`)
-    // .then(response => response.json())
-    // .then(responseData => {
-    // })
   }
 
   render() {
@@ -96,9 +87,7 @@ class CategoryShowContainer extends Component {
       if(this.state.selectedId == podcast.collectionId){
         className = "fa fa-minus-square toggleBoxMinus";
         hidden = "shown"
-        // this.fetchDescription(podcast.collectionId)
         description = this.state.selectedDescription
-        // description = "FETCHED";
       } else {
         hidden = "hidden"
         className = "fa fa-plus-square toggleBoxPlus";
@@ -122,16 +111,6 @@ class CategoryShowContainer extends Component {
           hidden={hidden}
         />
       )
-      // return(
-      //   <PodcastTile
-      //     key={podcast.id}
-      //     id={podcast.id}
-      //     artistName={podcast.artistName}
-      //     collectionName={podcast.collectionName}
-      //     artUrl={podcast.artUrl}
-      //     description={podcast.description}
-      //   />
-      // )
     })
     return(
       <div className='container homepage'>

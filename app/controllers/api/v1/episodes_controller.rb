@@ -7,6 +7,5 @@ class Api::V1::EpisodesController < ApplicationController
       episode: Episode.find(params[:id]),
       current_user: current_user
      }
-    # render json: Episode.find(params[:id])
   end
 end

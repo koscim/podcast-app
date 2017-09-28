@@ -264,6 +264,3 @@ class EditDowntimeFormContainer extends Component {
 }
 
 export default EditDowntimeFormContainer;
-
-// genres: ['Design', 'Fashion & Beauty', 'Food', 'Literature', 'Performing Arts', 'Visual Arts',
-//             'Business News', 'Careers', 'Investing', 'Management & Marketing', 'Shopping', ],

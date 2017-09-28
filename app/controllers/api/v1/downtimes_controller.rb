@@ -29,7 +29,6 @@ class Api::V1::DowntimesController < ApplicationController
       current_user: current_user,
       days: days
      }
-    # render json: Downtime.find(params[:id])
   end
   def create
     data = JSON.parse(request.body.read)

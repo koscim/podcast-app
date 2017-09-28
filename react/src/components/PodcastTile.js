@@ -19,6 +19,3 @@ const PodcastTile = props => {
 }
 
 export default PodcastTile;
-        // <p>{props.description}</p>
-        // <p>{props.artistName}</p>
-        // <p>{props.collectionName}</p>

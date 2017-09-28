@@ -22,7 +22,6 @@ class SearchContainer extends Component {
       loaded: true
     }
     this.handleInputChange = this.handleInputChange.bind(this)
-    // this.handleCategoryCheckboxChange = this.handleCategoryCheckboxChange.bind(this)
     this.handleNameCheckboxChange = this.handleNameCheckboxChange.bind(this)
     this.handleSearch = this.handleSearch.bind(this)
     this.changeState = this.changeState.bind(this)
@@ -56,20 +55,15 @@ class SearchContainer extends Component {
        credentials: 'same-origin'
     }).then(response => response.json())
     .then(responseBody => {
-      // description = responseBody.description
-      // if(responseBody.description !== this.state.selectedDescription){
       this.setState({ selectedId: id, selectedDescription: responseBody.description, selectedEpisodes: responseBody.episodes_data })
-      // }
     })
     .catch(error => {
       this.setState({ selectedId: id, selectedDescription: "Error: Unreadable Feed" })
     })
-    // debugger;
   }
 
   changeState(id){
     if (id != this.state.selectedId) {
-      // this.setState({ selectedId: id })
       this.fetchDescription(id)
     } else {
       this.setState({ selectedId: null })
@@ -79,17 +73,6 @@ class SearchContainer extends Component {
   handleInputChange(event){
     this.setState({ search: event.target.value })
   }
-
-  // handleCategoryCheckboxChange(event) {
-  //   if(this.state.searchName){
-  //     this.setState({
-  //       searchName: false,
-  //       searchCategory: !this.state.searchCategory
-  //     })
-  //   } else{
-  //     this.setState({ searchCategory: !this.state.searchCategory })
-  //   }
-  // }
 
   handleNameCheckboxChange(event) {
     if(this.state.searchCategory){
@@ -123,19 +106,6 @@ class SearchContainer extends Component {
       })
     })
     .catch((thing) => console.log("so sad"))
-    // let categoryId = this.props.params.id;
-    // fetch(`/api/v1/categories/${categoryId}`)
-    // .then(response => response.json())
-    // .then(responseData => {
-    //   this.setState({
-    //     category: responseData.category,
-    //     podcasts: responseData.podcasts
-    //   })
-    // })
-    // fetch(`https://itunes.apple.com/search?term=podcast&genreId=1402&limit=200`)
-    // .then(response => response.json())
-    // .then(responseData => {
-    // })
   }
 
   render() {
@@ -144,9 +114,7 @@ class SearchContainer extends Component {
       let className;
       if(this.state.selectedId == podcast.collectionId){
         className = "fa fa-minus-square toggleBoxMinus";
-        // this.fetchDescription(podcast.collectionId)
         description = this.state.selectedDescription
-        // description = "FETCHED";
       } else {
         className = "fa fa-plus-square toggleBoxPlus";
         description = "";
@@ -201,23 +169,3 @@ class SearchContainer extends Component {
 }
 
 export default SearchContainer;
-// <tbody>
-//   <label>
-//     <input
-//       name="searchName"
-//       type="checkbox"
-//       checked={this.state.searchName}
-//       onChange={this.handleNameCheckboxChange}
-//     />name
-//   </label>
-// </tbody>
-// <tbody>
-//   <label>
-//     <input
-//       name="searchCategory"
-//       type="checkbox"
-//       checked={this.state.searchCategory}
-//       onChange={this.handleCategoryCheckboxChange}
-//     />category
-//   </label>
-// </tbody>

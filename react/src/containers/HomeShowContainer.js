@@ -37,21 +37,6 @@ class HomeShowContainer extends Component {
     })
     .catch((thing) => console.log("so sad"))
     this.intervalID = setInterval(() => this.tick(), 1000);
-    // setInterval( () => {
-    //   this.setState({
-    //     currentTime : new Date().toLocaleString()
-    //   })
-    // }, 1000)
-    // fetch(`/api/v1/users/${this.state.user.id}/recommend`, {
-    //   credentials: 'same-origin',
-    //   body: JSON.stringify(timePayload)
-    // }).then(response => response.json())
-    // .then(responseBody => {
-    //   this.setState({
-    //     user: responseBody.current_user
-    //   })
-    // })
-    // .catch((thing) => console.log("so sad"))
   }
 
   tick() {
@@ -81,20 +66,6 @@ class HomeShowContainer extends Component {
       })
     })
     .catch((thing) => console.log("so sad"))
-  }
-
-  componentDidUpdate(){
-    // let currentTime = new Date().toLocaleString();
-    // currentTime = currentTime.replace(/\//g,"-")
-    // fetch(`/api/v1/users/${this.state.user.id}/recommend/${currentTime}`, {
-    //   credentials: 'same-origin'
-    // }).then(response => response.json())
-    // .then(responseBody => {
-    //   this.setState({
-    //     user: responseBody.current_user
-    //   })
-    // })
-    // .catch((thing) => console.log("so sad"))
   }
 
   render() {
@@ -165,14 +136,3 @@ class HomeShowContainer extends Component {
 }
 
 export default HomeShowContainer;
-
-
-// <EpisodeTile
-//   key={episode.id}
-//   id={episode.id}
-//   name={episode.name}
-//   duration={episode.duration}
-//   feedUrl={episode.feedUrl}
-//   imageUrl={episode.imageUrl}
-//   podcast_id={episode.podcast_id}
-// />
