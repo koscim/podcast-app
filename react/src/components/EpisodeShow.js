@@ -65,26 +65,13 @@ class EpisodeShow extends Component {
 
   start(){
     // console.log("OnStart")
+    this.player.seekTo(parseFloat(this.state.played))
   }
 
   load(){
     // console.log("onReady")
-    // let progressPayload = {
-    //   episode_id: this.props.id
-    // }
-    // fetch(`/api/v1/episodes/${this.props.id}/plays`, {
-    //   method: 'POST',
-    //   credentials: 'same-origin',
-    //   body: JSON.stringify(progressPayload)
-    // }).then(response => response.json())
-    // .then(responseBody => {
-    //   console.log(`onloadsetstate played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
-    //   // this.setState({
-    //   //   playProgress: responseBody,
-    //   //   // played: responseBody.secondsPlayed,
-    //   //   // loaded: responseBody.secondsLoaded
-    //   // })
-    // })
+
+
     // this.setState({
     //   played: this.state.playProgress.secondsPlayed,
     //   loaded: this.state.playProgress.secondsLoaded
@@ -149,21 +136,23 @@ class EpisodeShow extends Component {
     if(this.ref){
       if(!this.state.seeking){
         // console.log(`onProgress`)
-        // let progressPayload = {
-        //   episode_id: this.props.id,
-        //   played: this.state.played,
-        //   duration: this.state.loaded
-        // }
-        // fetch(`/api/v1/episodes/${this.props.id}/plays/${this.state.playProgress.id}`, {
-        //   method: 'PATCH',
-        //   credentials: 'same-origin',
-        //   body: JSON.stringify(progressPayload)
-        // }).then(response => response.json())
-        // .then(responseBody => {
-        //   console.log(`onProgresssetState played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
-        //   // this.setState(state)
-        // })
-        this.setState(state)
+        let progressPayload = {
+          episode_id: this.props.id,
+          played: state.played,
+          duration: state.loaded
+        }
+        fetch(`/api/v1/episodes/${this.props.id}/plays/${this.state.playProgress.id}`, {
+          method: 'PATCH',
+          credentials: 'same-origin',
+          body: JSON.stringify(progressPayload)
+        }).then(response => response.json())
+        .then(responseBody => {
+          console.log(`onProgresssetState played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
+          // this.setState(state)
+          debugger;
+          this.setState(state)
+        })
+        // this.setState(state)
       }
     }
   }
@@ -201,8 +190,20 @@ class EpisodeShow extends Component {
     }).then(response => response.json())
     .then(responseBody => {
       // console.log(`componentdidmountsetstate played ${responseBody.secondsPlayed} loaded ${responseBody.secondsLoaded}`)
+      let played, loaded;
+      if(responseBody.secondsPlayed == null) {
+        played = 0;
+        loaded = 0;
+        this.player.seekTo(parseFloat(0))
+      } else {
+        played = responseBody.secondsPlayed;
+        loaded = responseBody.secondsLoaded;
+        this.player.seekTo(played)
+      }
       this.setState({
         playProgress: responseBody,
+        played: played,
+        loaded: loaded
         // played: responseBody.secondsPlayed,
         // loaded: responseBody.secondsLoaded
       })

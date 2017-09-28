@@ -4,14 +4,14 @@ class Api::V1::PlaysController < ApplicationController
   def create
     data = JSON.parse(request.body.read)
     episode = Episode.find(data["episode_id"])
-    play = Play.find_by(episode_id: data["episode_id"])
-    if play.nil?
+    find_play = Play.find_by(episode_id: data["episode_id"])
+    if find_play.nil?
       Play.create(
         user: current_user,
         episode: episode
       )
     end
-    render json: play;
+    render json: find_play;
   end
   def update
     data = JSON.parse(request.body.read)
