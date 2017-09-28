@@ -145,118 +145,124 @@ class EditDowntimeFormContainer extends Component {
 
   render() {
     return(
-      <div className='container homepage'>
-        <h1>EDIT DOWNTIME</h1>
-        <form onSubmit={this.handleFormSubmit}>
-          <div className='row'>
-            <div className='six columns'>
+      <div>
+        <div className='sub-container'>
+        </div>
+        <div className='sub-header'>
+          EDIT DOWNTIME
+        </div>
+        <div className='container homepage'>
+          <form onSubmit={this.handleFormSubmit}>
+            <div className='row'>
+              <div className='six columns'>
+                  <TextField
+                    content={this.state.startTime}
+                    label='Start Time'
+                    name='startTime'
+                    handlerFunction={this.handleInputChange}
+                  />
+              </div>
+              <div className='six columns'>
+                  <TextField
+                    content={this.state.endTime}
+                    label='End Time'
+                    name='endTime'
+                    handlerFunction={this.handleInputChange}
+                  />
+              </div>
+            </div>
+            <div className='row'>
+              <div className='six columns'>
                 <TextField
-                  content={this.state.startTime}
-                  label='Start Time'
-                  name='startTime'
+                  content={this.state.name}
+                  label='Name'
+                  name='name'
                   handlerFunction={this.handleInputChange}
                 />
-            </div>
-            <div className='six columns'>
-                <TextField
-                  content={this.state.endTime}
-                  label='End Time'
-                  name='endTime'
+              </div>
+              <div className='six columns'>
+                <Select
                   handlerFunction={this.handleInputChange}
+                  name='genreSelected'
+                  label='Genre'
+                  options={this.state.genres}
+                  selectedOption={this.state.genreSelected}
                 />
+              </div>
             </div>
+            <div className='row'>
+              <div className='six columns'>
+                <label>
+                  <input
+                    name="setAll"
+                    type="checkbox"
+                    checked={this.state.setAll}
+                    onChange={this.handleAllCheckboxChange}
+                  /> All
+                </label>
+                <span className="label-body"><label>
+                  <input
+                    name="sunday"
+                    type="checkbox"
+                    checked={this.state.sunday}
+                    onChange={this.handleDayCheckboxChange}
+                  /> Sunday
+                </label></span>
+                <span className="label-body"><label>
+                  <input
+                    name="monday"
+                    type="checkbox"
+                    checked={this.state.monday}
+                    onChange={this.handleDayCheckboxChange}
+                  /> Monday
+                </label></span>
+              <span className="label-body"><label>
+                  <input
+                    name="tuesday"
+                    type="checkbox"
+                    checked={this.state.tuesday}
+                    onChange={this.handleDayCheckboxChange}
+                  /> Tuesday
+                </label></span>
+                <span className="label-body"><label>
+                  <input
+                    name="wednesday"
+                    type="checkbox"
+                    checked={this.state.wednesday}
+                    onChange={this.handleDayCheckboxChange}
+                  /> Wednesday
+                </label></span>
+                <span className="label-body"><label>
+                  <input
+                    name="thursday"
+                    type="checkbox"
+                    checked={this.state.thursday}
+                    onChange={this.handleDayCheckboxChange}
+                  /> Thursday
+                </label></span>
+                <span className="label-body"><label>
+                  <input
+                    name="friday"
+                    type="checkbox"
+                    checked={this.state.friday}
+                    onChange={this.handleDayCheckboxChange}
+                  /> Friday
+                </label></span>
+                <span className="label-body"><label>
+                  <input
+                    name="saturday"
+                    type="checkbox"
+                    checked={this.state.saturday}
+                    onChange={this.handleDayCheckboxChange}
+                  /> Saturday
+                </label></span>
+              </div>
+            </div>
+            <input className="button" type="submit" value="Submit" />
+          </form>
+          <div className="button" onClick={browserHistory.goBack} >
+            Back
           </div>
-          <div className='row'>
-            <div className='six columns'>
-              <TextField
-                content={this.state.name}
-                label='Name'
-                name='name'
-                handlerFunction={this.handleInputChange}
-              />
-            </div>
-            <div className='six columns'>
-              <Select
-                handlerFunction={this.handleInputChange}
-                name='genreSelected'
-                label='Genre'
-                options={this.state.genres}
-                selectedOption={this.state.genreSelected}
-              />
-            </div>
-          </div>
-          <div className='row'>
-            <div className='six columns'>
-              <label>
-                <input
-                  name="setAll"
-                  type="checkbox"
-                  checked={this.state.setAll}
-                  onChange={this.handleAllCheckboxChange}
-                /> All
-              </label>
-              <span className="label-body"><label>
-                <input
-                  name="sunday"
-                  type="checkbox"
-                  checked={this.state.sunday}
-                  onChange={this.handleDayCheckboxChange}
-                /> Sunday
-              </label></span>
-              <span className="label-body"><label>
-                <input
-                  name="monday"
-                  type="checkbox"
-                  checked={this.state.monday}
-                  onChange={this.handleDayCheckboxChange}
-                /> Monday
-              </label></span>
-            <span className="label-body"><label>
-                <input
-                  name="tuesday"
-                  type="checkbox"
-                  checked={this.state.tuesday}
-                  onChange={this.handleDayCheckboxChange}
-                /> Tuesday
-              </label></span>
-              <span className="label-body"><label>
-                <input
-                  name="wednesday"
-                  type="checkbox"
-                  checked={this.state.wednesday}
-                  onChange={this.handleDayCheckboxChange}
-                /> Wednesday
-              </label></span>
-              <span className="label-body"><label>
-                <input
-                  name="thursday"
-                  type="checkbox"
-                  checked={this.state.thursday}
-                  onChange={this.handleDayCheckboxChange}
-                /> Thursday
-              </label></span>
-              <span className="label-body"><label>
-                <input
-                  name="friday"
-                  type="checkbox"
-                  checked={this.state.friday}
-                  onChange={this.handleDayCheckboxChange}
-                /> Friday
-              </label></span>
-              <span className="label-body"><label>
-                <input
-                  name="saturday"
-                  type="checkbox"
-                  checked={this.state.saturday}
-                  onChange={this.handleDayCheckboxChange}
-                /> Saturday
-              </label></span>
-            </div>
-          </div>
-          <input className="button" type="submit" value="Submit" />
-        </form>
-        <div className="button" onClick={browserHistory.goBack} >
-          Back
         </div>
       </div>
     )

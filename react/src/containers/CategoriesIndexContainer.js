@@ -40,10 +40,16 @@ class CategoriesIndexContainer extends Component {
       )
     })
     return (
-      <div className='container homepage'>
-        <h1>GENRES</h1>
-        <h2>FIND PODCASTS BY GENRE</h2>
-        {categories}
+      <div>
+        <div className='sub-container'>
+        </div>
+        <div className='sub-header'>
+          GENRES
+        </div>
+        <div className='container homepage'>
+          <h2>BROWSE BY GENRE</h2>
+          {categories}
+        </div>
       </div>
     )
   }

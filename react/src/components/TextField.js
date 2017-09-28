@@ -2,7 +2,7 @@ import React from 'react';
 
 const TextField = props => {
   return (
-    <label className="white-text">
+    <label className="white-text form-center">
       {props.label}
       <input
         name={props.name}

@@ -56,13 +56,19 @@ class PodcastsIndexContainer extends Component {
       )
     })
     return (
-      <div className='container homepage'>
-        <h1>YOUR SUBSCRIPTIONS</h1>
-        <div>
-          {this.state.hasPodcasts == false ? <p>IT LOOKS LIKE YOU DON&#39;T HAVE ANY SUBSCRIPTIONS. SEARCH FOR PODCASTS BY CLICKING ON + AT THE TOP OR BROWSE BY GENRE  BY CLICKING ON GENRES.</p> : ""}
+      <div>
+        <div className='sub-container'>
         </div>
-        <div className="center-subscriptions">
-          {podcasts}
+        <div className='sub-header'>
+          SUBSCRIPTIONS
+        </div>
+        <div className='container homepage'>
+          <div>
+            {this.state.hasPodcasts == false ? <p>IT LOOKS LIKE YOU DON&#39;T HAVE ANY SUBSCRIPTIONS. SEARCH FOR PODCASTS BY CLICKING ON + AT THE TOP OR BROWSE BY GENRE  BY CLICKING ON GENRES.</p> : ""}
+          </div>
+          <div className="center-subscriptions">
+            {podcasts}
+          </div>
         </div>
       </div>
     )
@@ -70,3 +76,5 @@ class PodcastsIndexContainer extends Component {
 }
 
 export default PodcastsIndexContainer;
+
+// <h1>YOUR SUBSCRIPTIONS</h1>

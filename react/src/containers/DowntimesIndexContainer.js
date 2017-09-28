@@ -80,14 +80,21 @@ class DowntimesIndexContainer extends Component {
         )
       })
       return(
-        <div className='container homepage'>
-          <h1>YOUR SCHEDULED DOWNTIMES</h1>
-          {downtimes}
-          <Link to={`/downtimes/new`}>
-            <h3>ADD A NEW DOWNTIME</h3>
-          </Link>
-          <div className="button" onClick={browserHistory.goBack} >
-            Back
+        <div>
+          <div className='sub-container'>
+          </div>
+          <div className='sub-header'>
+            DOWNTIMES
+          </div>
+          <div className='container homepage'>
+            <h1>YOUR SCHEDULED DOWNTIMES</h1>
+            {downtimes}
+            <Link to={`/downtimes/new`}>
+              <h3>ADD A NEW DOWNTIME</h3>
+            </Link>
+            <div className="button" onClick={browserHistory.goBack} >
+              Back
+            </div>
           </div>
         </div>
       )

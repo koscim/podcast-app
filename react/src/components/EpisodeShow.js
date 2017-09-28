@@ -216,45 +216,48 @@ class EpisodeShow extends Component {
             />
           </div>
           <div className="player-container">
-            <div className="row">
-              <div className="twelve columns">
-                {progressBar}
+            <div className="container">
+              <div className="row">
+                <div className="twelve columns">
+                  {progressBar}
+                </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="twelve columns progress-bar">
-                <input
-                  type='range' min={0} max={1} step='any'
-                  value={this.state.played}
-                  onMouseDown={this.onSeekMouseDown}
-                  onChange={this.onSeekChange}
-                  onMouseUp={this.onSeekMouseUp}
-                />
+              <div className="row">
+                <div className="twelve columns progress-bar">
+                  <input
+                    type='range' min={0} max={1} step='any'
+                    id = 'font-1-size'
+                    value={this.state.played}
+                    onMouseDown={this.onSeekMouseDown}
+                    onChange={this.onSeekChange}
+                    onMouseUp={this.onSeekMouseUp}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="row">
-              <div className="four columns">
-                <button className="circle" onClick={this.stop}><i className="fa fa-stop"></i></button>
+              <div className="row">
+                <div className="four columns buttons">
+                  <div onClick={this.stop}><i className="fa fa-stop"></i></div>
+                </div>
+                <div className="four columns buttons">
+                  <div onClick={this.playPause}>{this.state.playing ? <i className="fa fa-pause"></i> : <i className="fa fa-play"></i>}</div>
+                </div>
+                <div className="four columns buttons mute-container">
+                  <label className="mute" htmlFor="mute">
+                    <input type='checkbox' id="mute" className="hide" checked={this.state.muted} onChange={this.toggleMuted} />{this.state.muted ? <i className="material-icons circle mute-button">volume_off</i> : <i className="material-icons circle mute-button">volume_up</i> }
+                  </label>
+                </div>
               </div>
-              <div className="four columns">
-                <button className="circle" onClick={this.playPause}>{this.state.playing ? <i className="fa fa-pause"></i> : <i className="fa fa-play"></i>}</button>
-              </div>
-              <div className="four columns">
-                <label className="mute" htmlFor="mute">
-                  <input type='checkbox' id="mute" className="hide" checked={this.state.muted} onChange={this.toggleMuted} />{this.state.muted ? <i className="material-icons circle">volume_off</i> : <i className="material-icons circle">volume_up</i> }
-                </label>
-              </div>
-            </div>
-            <div className="row">
-              <div className="four columns">
-                <h4>ELAPSED</h4><Duration seconds={this.state.duration * (this.state.played)} />
-              </div>
-              <div className="four columns">
-                <h4>REMAINING</h4><Duration seconds={this.state.duration * (1 - this.state.played)} />
-              </div>
-              <div className="four columns">
-                  <h4>VOLUME</h4>
-                  <input type='range' min={0} max={1} step='any' value={this.state.volume} onChange={this.setVolume} />
+              <div className="row">
+                <div className="four columns time">
+                  <h4>ELAPSED</h4><Duration seconds={this.state.duration * (this.state.played)} />
+                </div>
+                <div className="four columns time">
+                  <h4>REMAINING</h4><Duration seconds={this.state.duration * (1 - this.state.played)} />
+                </div>
+                <div className="four columns">
+                    <h4>VOLUME</h4>
+                    <input type='range' min={0} max={1} step='any' value={this.state.volume} onChange={this.setVolume} />
+                </div>
               </div>
             </div>
           </div>

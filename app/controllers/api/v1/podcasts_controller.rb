@@ -13,7 +13,6 @@ class Api::V1::PodcastsController < ApplicationController
     render json: Podcast.find(params[:id])
   end
   def recommend
-    binding.pry
   end
   def create
     data = JSON.parse(request.body.read)
@@ -90,7 +89,7 @@ class Api::V1::PodcastsController < ApplicationController
       end
     end
       subscription = Subscription.create(user: current_user, podcast: podcast)
-      render json: podcast
+      render json: current_user.podcasts
   end
 
   def destroy

@@ -103,33 +103,40 @@ class HomeShowContainer extends Component {
       )
     })
     return (
-      <div className='container homepage'>
-        <h1>WELCOME BACK</h1>
-        {this.state.user.first_name ? <h1>{this.state.user.first_name.toUpperCase()}</h1> : ""}
-        <div className="border-underline"></div>
-        <br />
-        <h3>THE CURRENT TIME IS:</h3>
-        {this.state.currentTime != "" ? <h3>{this.state.currentTime}</h3> : <h3><br /></h3>}
-        <h4>CLICK BELOW TO GENERATE YOUR CURATED LIST OF EPISODES</h4>
-        <button className="centered" onClick={this.generateSuggestions}>Generate Suggestions</button>
-        <br />
-        <h1>
-          <LoadingCircle
-            loaded={this.state.loaded}
-          />
-        </h1>
-        {this.state.downtime.name ? <h3>WE&#39;VE CURATED A PODCAST LIST FOR <span className="bold-outline">{this.state.downtime.name.toUpperCase()}</span>.</h3> : "" }
-        {this.state.episodes.length == 3 ? <p>YOU HAVEN&#39;T SCHEDULED A DOWNTIME FOR YOUR CURRENT TIME. HERE ARE SOME EPISODES FROM YOUR SUBSCRIPTIONS TO LISTEN TO ANYWAY.</p> : "" }
-        <br />
-        {this.state.shorter_episodes.length > 0 ? <h3>HERE ARE SHORTER EPISODES: </h3> : ""}
-        {shorter_episodes}
-        {this.state.episodes.length == 3 ? episodes : "" }
-        <br />
-        {this.state.longer_episodes.length > 0 ? <h3>HERE ARE LONGER EPISODES: </h3> : ""}
-        {longer_episodes}
-        <br />
-        {this.state.suggestions.length > 0 ? <h3>Based on your subscriptions, you might enjoy this new podcast:</h3> : ""}
-        <br />
+      <div>
+        <div className='header-container'>
+        </div>
+        <div className='title-header'>
+          HOME
+        </div>
+        <div className='container homepage'>
+          <h1>WELCOME BACK</h1>
+          {this.state.user.first_name ? <h1>{this.state.user.first_name.toUpperCase()}</h1> : ""}
+          <div className="border-underline"></div>
+          <br />
+          <h3>THE CURRENT TIME IS:</h3>
+          {this.state.currentTime != "" ? <h3>{this.state.currentTime}</h3> : <h3><br /></h3>}
+          <h4>CLICK BELOW TO GENERATE YOUR CURATED LIST OF EPISODES</h4>
+          <button className="centered" onClick={this.generateSuggestions}>Generate Suggestions</button>
+          <br />
+          <h1>
+            <LoadingCircle
+              loaded={this.state.loaded}
+            />
+          </h1>
+          {this.state.downtime.name ? <h3>WE&#39;VE CURATED A PODCAST LIST FOR <span className="bold-outline">{this.state.downtime.name.toUpperCase()}</span>.</h3> : "" }
+          {this.state.episodes.length == 3 ? <p>YOU HAVEN&#39;T SCHEDULED A DOWNTIME FOR YOUR CURRENT TIME. HERE ARE SOME EPISODES FROM YOUR SUBSCRIPTIONS TO LISTEN TO ANYWAY.</p> : "" }
+          <br />
+          {this.state.shorter_episodes.length > 0 ? <h3>HERE ARE SHORTER EPISODES: </h3> : ""}
+          {shorter_episodes}
+          {this.state.episodes.length == 3 ? episodes : "" }
+          <br />
+          {this.state.longer_episodes.length > 0 ? <h3>HERE ARE LONGER EPISODES: </h3> : ""}
+          {longer_episodes}
+          <br />
+          {this.state.suggestions.length > 0 ? <h3>Based on your subscriptions, you might enjoy this new podcast:</h3> : ""}
+          <br />
+        </div>
       </div>
     )
   }

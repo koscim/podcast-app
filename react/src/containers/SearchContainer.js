@@ -19,7 +19,9 @@ class SearchContainer extends Component {
       selectedId: null,
       selectedDescription: "",
       selectedEpisodes: [],
-      loaded: true
+      loaded: true,
+      fetched: false,
+      subscribedPodcasts: []
     }
     this.handleInputChange = this.handleInputChange.bind(this)
     this.handleNameCheckboxChange = this.handleNameCheckboxChange.bind(this)
@@ -46,19 +48,20 @@ class SearchContainer extends Component {
       body: JSON.stringify(subscribePayload)
     }).then(response => response.json())
     .then(responseBody => {
-
+      this.setState({ subscribedPodcasts: responseBody.podcasts})
     })
   }
 
   fetchDescription(id){
+    this.setState({ fetched: false })
     fetch(`api/v1/users/${this.state.user.id}/fetch/${id}`, {
        credentials: 'same-origin'
     }).then(response => response.json())
     .then(responseBody => {
-      this.setState({ selectedId: id, selectedDescription: responseBody.description, selectedEpisodes: responseBody.episodes_data })
+      this.setState({ selectedId: id, selectedDescription: responseBody.description, selectedEpisodes: responseBody.episodes_data, fetched: true })
     })
     .catch(error => {
-      this.setState({ selectedId: id, selectedDescription: "Error: Unreadable Feed" })
+      this.setState({ selectedId: id, selectedDescription: "Error: Unreadable Feed", fetched: true })
     })
   }
 
@@ -87,7 +90,7 @@ class SearchContainer extends Component {
 
   handleSearch(event) {
     event.preventDefault()
-    loaded: false
+    this.setState({loaded: false})
     fetch(`api/v1/users/${this.state.user.id}/search/${this.state.search}`, {
       credentials: 'same-origin'
     }).then(response => response.json())
@@ -106,18 +109,36 @@ class SearchContainer extends Component {
       })
     })
     .catch((thing) => console.log("so sad"))
+    fetch(`/api/v1/podcasts/`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+    .then(responseBody => {
+      this.setState({
+        subscribedPodcasts: responseBody.podcasts
+      })
+    })
+    .catch((thing) => console.log("so sad"))
   }
 
   render() {
     let podcasts = this.state.podcasts["results"].map(podcast => {
+      let subscribed = false;
+      this.state.subscribedPodcasts.forEach((subscribedPodcast) => {
+        if(subscribedPodcast.collectionId == podcast.collectionId){
+          subscribed = true;
+        }
+      })
       let description;
       let className;
+      let fetched;
       if(this.state.selectedId == podcast.collectionId){
         className = "fa fa-minus-square toggleBoxMinus";
         description = this.state.selectedDescription
+        fetched = this.state.fetched;
       } else {
         className = "fa fa-plus-square toggleBoxPlus";
         description = "";
+        fetched = true;
       }
       return(
         <SubscribePodcastTile
@@ -134,34 +155,42 @@ class SearchContainer extends Component {
           setSelected={this.changeState}
           episodes={this.state.selectedEpisodes}
           subscribePodcast={this.subscribePodcast}
+          fetched={fetched}
+          subscribed={subscribed}
         />
       )
     })
     return(
-      <div className='container homepage'>
-        <form onSubmit={this.handleSearch}>
-          <table>
-            <tbody>
+      <div>
+        <div className='sub-container'>
+        </div>
+        <div className='sub-header'>
+          SEARCH
+        </div>
+        <div className='container homepage'>
+          <h2>SEARCH BY NAME</h2>
+          <form onSubmit={this.handleSearch}>
+            <div>
               <TextField
                 content={this.state.search}
-                label="Search"
+                label=""
                 name="search"
                 handlerFunction={this.handleInputChange}
               />
-            </tbody>
-            <tbody>
+            </div>
+            <div>
               <input className="button" type="submit" value="Submit" />
-            </tbody>
-          </table>
-        </form>
-        <h1>
-          <LoadingCircle
-            loaded={this.state.loaded}
-          />
-        </h1>
-        {podcasts}
-        <div className="button" onClick={browserHistory.goBack} >
-          Back
+            </div>
+          </form>
+          <h1>
+            <LoadingCircle
+              loaded={this.state.loaded}
+            />
+          </h1>
+          {podcasts}
+          <div className="button" onClick={browserHistory.goBack} >
+            Back
+          </div>
         </div>
       </div>
     )
