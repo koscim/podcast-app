@@ -153,7 +153,6 @@ class EpisodeShow extends Component {
     let progressPayload = {
       episode_id: this.props.id
     }
-    debugger;
     fetch(`/api/v1/episodes/${this.props.id}/plays`, {
       method: 'POST',
       credentials: 'same-origin',
