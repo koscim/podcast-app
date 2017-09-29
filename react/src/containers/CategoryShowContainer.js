@@ -113,20 +113,26 @@ class CategoryShowContainer extends Component {
       )
     })
     return(
-      <div className='container homepage'>
-        <span>Genres</span>
-        <h1>
-          <LoadingCircle
-            loaded={this.state.loaded}
+      <div>
+        <div className='sub-container'>
+        </div>
+        <div className='sub-header'>
+          GENRES
+        </div>
+        <div className='container homepage'>
+          <h1>
+            <LoadingCircle
+              loaded={this.state.loaded}
+            />
+          </h1>
+          <CategoryShow
+            key={this.state.category.id}
+            id={this.state.category.id}
+            name={this.state.category.name}
           />
-        </h1>
-        <CategoryShow
-          key={this.state.category.id}
-          id={this.state.category.id}
-          name={this.state.category.name}
-        />
-        <div className='podcast-container row'>
-          {podcasts}
+          <div className='podcast-container row'>
+            {podcasts}
+          </div>
         </div>
       </div>
     )

@@ -3,13 +3,15 @@ import ReactPlayer from 'react-player';
 import PodcastTile from '../components/PodcastTile';
 import Duration from '../components/Duration';
 import { browserHistory, Link } from 'react-router';
+import LoadingCircle from '../components/LoadingCircle';
 
 class PodcastsIndexContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       podcasts: [],
-      hasPodcasts: true
+      hasPodcasts: true,
+      loaded: false
     }
   }
 
@@ -36,7 +38,8 @@ class PodcastsIndexContainer extends Component {
       }
       this.setState({
         podcasts: responseBody.podcasts,
-        hasPodcasts: hasPodcasts
+        hasPodcasts: hasPodcasts,
+        loaded: true
       })
     })
   }
@@ -63,6 +66,11 @@ class PodcastsIndexContainer extends Component {
           SUBSCRIPTIONS
         </div>
         <div className='container homepage'>
+          <h1>
+            <LoadingCircle
+              loaded={this.state.loaded}
+            />
+          </h1>
           <div>
             {this.state.hasPodcasts == false ? <p>IT LOOKS LIKE YOU DON&#39;T HAVE ANY SUBSCRIPTIONS. SEARCH FOR PODCASTS BY CLICKING ON + AT THE TOP OR BROWSE BY GENRE  BY CLICKING ON GENRES.</p> : ""}
           </div>
