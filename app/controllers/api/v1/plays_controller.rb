@@ -6,7 +6,7 @@ class Api::V1::PlaysController < ApplicationController
     episode = Episode.find(data["episode_id"])
     find_play = Play.find_by(episode_id: data["episode_id"])
     if find_play.nil?
-      Play.create(
+      find_play = Play.create(
         user: current_user,
         episode: episode
       )
