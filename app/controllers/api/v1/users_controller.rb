@@ -116,10 +116,11 @@ class Api::V1::UsersController < ApplicationController
         downtime: selected_downtimes[0],
         episodes: episodes,
         shorter_episodes: shorter_episodes.sample(3),
-        longer_episodes: longer_episodes.sample(3)
+        longer_episodes: longer_episodes.sample(3),
+        hasPodcasts: true
       }
       render json: downtime_data
-    else
+    elsif podcasts.count > 0
       episodes = []
       podcasts.each do |podcast|
         selected_episodes = podcast.episodes.select { |episode| episode.plays == [] || episode.plays.select { |play| play.times == 0 } != [] }
@@ -129,9 +130,19 @@ class Api::V1::UsersController < ApplicationController
         downtime: {},
         episodes: episodes.sample(3),
         shorter_episodes: [],
-        longer_episodes: []
+        longer_episodes: [],
+        hasPodcasts: true
       }
       render json: data_without_downtime
+    else
+      data_with_no_podcasts = {
+        downtime: {},
+        episodes: [],
+        shorter_episodes: [],
+        longer_episodes: [],
+        hasPodcasts: false
+      }
+      render json: data_with_no_podcasts
     end
   end
 end

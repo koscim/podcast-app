@@ -17,7 +17,7 @@ const DowntimeTile = props => {
         </div>
       </Link>
       <div className="button" onClick={handleClick}>
-        DELETE DOWNTIME
+        <div>DELETE DOWNTIME</div>
       </div>
     </div>
   )

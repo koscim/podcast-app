@@ -44,6 +44,35 @@ class PodcastsIndexContainer extends Component {
     })
   }
 
+  componentWillMount() {
+    fetch(`/api/v1/podcasts`, {
+      credentials: 'same-origin'
+    })
+    .then(response => {
+      if (response.ok) {
+        return response;
+      } else {
+        let errorMessage = `${response.status} (${response.statusText})`,
+          error = new Error(errorMessage);
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(responseBody => {
+      let hasPodcasts;
+      if(responseBody.podcasts.length == 0){
+        hasPodcasts = false;
+      } else {
+        hasPodcasts = true;
+      }
+      this.setState({
+        podcasts: responseBody.podcasts,
+        hasPodcasts: hasPodcasts,
+        loaded: true
+      })
+    })
+  }
+
   render() {
     let podcasts = this.state.podcasts.map(podcast => {
       return(

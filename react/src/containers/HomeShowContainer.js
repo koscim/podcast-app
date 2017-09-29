@@ -15,7 +15,8 @@ class HomeShowContainer extends Component {
       shorter_episodes: [],
       longer_episodes: [],
       loaded: true,
-      suggestions: []
+      suggestions: [],
+      hasPodcasts: true
     }
     this.generateSuggestions = this.generateSuggestions.bind(this)
   }
@@ -62,7 +63,8 @@ class HomeShowContainer extends Component {
         episodes: responseBody.episodes,
         shorter_episodes: responseBody.shorter_episodes,
         longer_episodes: responseBody.longer_episodes,
-        loaded: true
+        loaded: true,
+        hasPodcasts: responseBody.hasPodcasts
       })
     })
     .catch((thing) => console.log("so sad"))
@@ -126,6 +128,7 @@ class HomeShowContainer extends Component {
           </h1>
           {this.state.downtime.name ? <h3>WE&#39;VE CURATED A PODCAST LIST FOR <span className="bold-outline">{this.state.downtime.name.toUpperCase()}</span>.</h3> : "" }
           {this.state.episodes.length == 3 ? <p>YOU HAVEN&#39;T SCHEDULED A DOWNTIME FOR YOUR CURRENT TIME. HERE ARE SOME EPISODES FROM YOUR SUBSCRIPTIONS TO LISTEN TO ANYWAY.</p> : "" }
+          {this.state.hasPodcasts == false ? <p>YOU HAVEN&#39;T SUBSCRIBED TO ANY PODCASTS. TO DO SO, PLEASE CLICK ON THE + SIGN IN THE TOP RIGHT CORNER TO SEARCH BY NAME OR CLICK ON GENRES TO BROWSE BY GENRE.</p> : "" }
           <br />
           {this.state.shorter_episodes.length > 0 ? <h3>HERE ARE SHORTER EPISODES: </h3> : ""}
           {shorter_episodes}

@@ -19,13 +19,13 @@ const CategoryPodcastTile = props => {
           <span className="small-letters">{props.collectionName}</span>
         </div>
       </div>
-      <div className={`tile twelve-columns column ${props.hidden}`} onClick={handleClick}>
-        <i className={props.className} onClick={handleClick} aria-hidden="true"></i>
+      <div className={`tile twelve-columns column ${props.hidden}`}>
         <img src={props.artUrl} alt="podcast art" height="200px"/>
         <p>{props.artistName}</p>
         <p>{props.collectionName}</p>
         <p>{props.description}</p>
-        {props.description ? <button onClick={subscribeClick}>Subscribe</button> : ""}
+        {props.description && props.subscribed == false ? <button className='subscribed' onClick={subscribeClick}>Subscribe</button> : ""}
+        {props.description && props.subscribed == true ? <button disabled='true'>Subscribed</button> : ""}
       </div>
     </div>
   )

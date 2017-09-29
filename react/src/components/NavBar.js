@@ -7,6 +7,7 @@ class NavBar extends Component {
     this.state = {
       user: {}
     }
+    this.toggleMenu = this.toggleMenu.bind(this)
   }
 
   componentDidMount() {
@@ -21,6 +22,10 @@ class NavBar extends Component {
     .catch((thing) => console.log("so sad"))
   }
 
+  toggleMenu(){
+    document.getElementById('toggle-mobile-menu').checked = false;
+  }
+
   render(){
     return(
       <div>
@@ -28,15 +33,19 @@ class NavBar extends Component {
           <div className='top-bar-title'>
             Pod
           </div>
-          <div className='top-bar-section'>
-            {!this.state.user ? <a href='/users/sign_in' className='link'>Sign In</a> : ""}
-            {this.state.user ? <a href='/users/sign_out' data-method="delete" rel='nofollow' className='link'>Sign Out</a> : ""}
-            {!this.state.user ? <a href='/users/sign_up' className='link'>Sign Up</a> : ""}
-            <Link to='/' className='link'>Home</Link>
-            <Link to='/podcasts' className='link'>Subscriptions</Link>
-            <Link to='/categories' className='link'>Genres</Link>
-            <Link to='/downtimes' className='link'>Downtimes</Link>
-            <Link to='/search' className='link'>+</Link>
+          <div className='top-bar-section' id="site-navigation" aria-label="Menu">
+            <label htmlFor="toggle-mobile-menu" aria-label="Menu">&#9776;</label>
+            <input id="toggle-mobile-menu" type="checkbox" />
+            <ul id="main-menu">
+              {!this.state.user ? <li><a href='/users/sign_in' className='link' onClick={this.toggleMenu}>Sign In</a></li> : ""}
+              {this.state.user ? <li><a href='/users/sign_out' data-method="delete" rel='nofollow' className='link' onClick={this.toggleMenu}>Sign Out</a></li> : ""}
+              {!this.state.user ? <li><a href='/users/sign_up' className='link' onClick={this.toggleMenu}>Sign Up</a></li> : ""}
+              <li><Link to='/' className='link' onClick={this.toggleMenu}>Home</Link></li>
+              <li><Link to='/podcasts' className='link' onClick={this.toggleMenu}>Subscriptions</Link></li>
+              <li><Link to='/categories' className='link' onClick={this.toggleMenu}>Genres</Link></li>
+              <li><Link to='/downtimes' className='link' onClick={this.toggleMenu}>Downtimes</Link></li>
+              <li><Link to='/search' className='link' onClick={this.toggleMenu}>+</Link></li>
+            </ul>
           </div>
         </div>
           {this.props.children}

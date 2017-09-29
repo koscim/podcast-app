@@ -43,6 +43,7 @@
     "babel-preset-react": "^6.5.0",
     "masonry-layout": "^4.2.0",
     "react": "^15.6.1",
+    "react-cookie": "^2.1.1",
     "react-dom": "^15.6.1",
     "react-player": "^0.22.0",
     "react-player-controls": "^0.5.17",

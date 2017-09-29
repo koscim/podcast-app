@@ -59,7 +59,7 @@ class CategoryShowContainer extends Component {
       body: JSON.stringify(subscribePayload)
     }).then(response => response.json())
     .then(responseBody => {
-
+      this.setState({ subscribedPodcasts: responseBody.podcasts})
     })
   }
 
@@ -77,10 +77,25 @@ class CategoryShowContainer extends Component {
         loaded: true
       })
     })
+    fetch(`/api/v1/podcasts/`, {
+      credentials: 'same-origin'
+    }).then(response => response.json())
+    .then(responseBody => {
+      this.setState({
+        subscribedPodcasts: responseBody.podcasts
+      })
+    })
+    .catch((thing) => console.log("so sad"))
   }
 
   render() {
     let podcasts = this.state.podcasts.map(podcast => {
+      let subscribed = false;
+      this.state.subscribedPodcasts.forEach((subscribedPodcast) => {
+        if(subscribedPodcast.collectionId == podcast.collectionId){
+          subscribed = true;
+        }
+      })
       let description;
       let className;
       let hidden;
@@ -109,6 +124,7 @@ class CategoryShowContainer extends Component {
           episodes={this.state.selectedEpisodes}
           subscribePodcast={this.subscribePodcast}
           hidden={hidden}
+          subscribed={subscribed}
         />
       )
     })
