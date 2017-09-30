@@ -200,6 +200,7 @@ class EpisodeShow extends Component {
         <div className='row'>
           <div className='player-wrapper none'>
             <ReactPlayer
+              preload={true}
               ref={this.ref}
               url={this.state.url}
               playing={this.state.playing}
