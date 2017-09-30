@@ -58,7 +58,24 @@ RSpec.configure do |config|
 end
 require "capybara/rails"
 require "valid_attribute"
+require "capybara-screenshot/rspec"
+
+Capybara.register_driver :chrome do |app|
+  Capybara::Selenium::Driver.new(app, browser: :chrome)
+end
+
+Capybara.javascript_driver = :chrome
+
+Capybara::Screenshot.prune_strategy = { keep: 10 }
+
+Capybara.configure do |config|
+  config.default_max_wait_time = 10 # seconds
+  config.default_driver = :selenium
+end
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.before(:each, type: :feature) do
+    # Capybara.current_session.driver.browser.manage.window.resize_to(2_500, 2_500)
+  end
 end

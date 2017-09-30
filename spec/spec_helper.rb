@@ -13,7 +13,28 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
+require 'webmock/rspec'
+require 'pry'
+require 'json'
+require_relative 'support/fake_itunes.rb'
+require_relative 'support/wait_for_ajax.rb'
+WebMock.disable_net_connect!(allow_localhost: true)
 RSpec.configure do |config|
+  config.before(:each) do
+    category_show_body = {
+        "results": [
+          "collectionId": "4415",
+          "artistName": "Blizzard",
+          "collectionName": "StarCraft",
+          "artworkUrl600": "protoss.jpg",
+        ]
+      }.to_json
+    stub_request(:get, "https://itunes.apple.com/search?genreId=1301&limit=1000&term=podcast").
+      with(headers: {'Accept'=>'*/*', 'Accept-Encoding'=>'gzip;q=1.0,deflate;q=0.6,identity;q=0.3', 'Host'=>'itunes.apple.com', 'User-Agent'=>'Ruby'}).
+      to_return(status: 200, body: category_show_body, headers: {})
+  end
+
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.

@@ -39,7 +39,7 @@ RSpec.describe Api::V1::CategoriesController, type: :controller do
   }
 
   describe "GET#index" do
-    it "should return a list of all the podcasts associated with a user" do
+    it "should return a list of categories" do
       sign_in(current_user)
       get :index
       returned_json = JSON.parse(response.body)
@@ -53,27 +53,20 @@ RSpec.describe Api::V1::CategoriesController, type: :controller do
     end
   end
 
-  # describe "GET#show" do
-  #   it "should return a specific podcast and it's details" do
-  #     sign_in(current_user)
-  #     get :show, params: { id: 1 }
-  #     returned_json = JSON.parse(response.body)
-  #
-  #     expect(response.status).to eq 200
-  #     expect(response.content_type).to eq("application/json")
-  #     puts returned_json
-  #     expect(returned_json.length).to eq 1
-  #     expect(returned_json["podcast"]["collectionId"]).to eq '4415'
-  #     expect(returned_json["podcast"]["artistName"]).to eq 'Blizzard'
-  #     expect(returned_json["podcast"]["collectionName"]).to eq 'StarCraft'
-  #     expect(returned_json["podcast"]["artUrl"]).to eq 'protoss.jpg'
-  #     expect(returned_json["podcast"]["description"]).to eq 'Welcome to StarCraftCast'
-  #
-  #     expect(returned_json["podcast"]["episodes"][0]["name"]).to eq 'Episode 1: Protoss Strikes Back'
-  #     expect(returned_json["podcast"]["episodes"][0]["duration"]).to eq '1929'
-  #     expect(returned_json["podcast"]["episodes"][0]["feedUrl"]).to eq 'feed.mp3'
-  #     expect(returned_json["podcast"]["episodes"][0]["imageUrl"]).to eq 'terrans.jpg'
-  #     expect(returned_json["podcast"]["episodes"][0]["description"]).to eq 'The Protoss are so cool'
-  #   end
-  # end
+  describe "GET#show" do
+    it "should return a list of podcasts associated with a category" do
+      sign_in(current_user)
+      get :show, params: { id: 1 }
+      returned_json = JSON.parse(response.body)
+
+      expect(response.status).to eq 200
+      expect(response.content_type).to eq("application/json")
+      puts returned_json
+      expect(returned_json.length).to eq 3
+      expect(returned_json["podcasts"][0]["collectionId"]).to eq '4415'
+      expect(returned_json["podcasts"][0]["artistName"]).to eq 'Blizzard'
+      expect(returned_json["podcasts"][0]["collectionName"]).to eq 'StarCraft'
+      expect(returned_json["podcasts"][0]["artUrl"]).to eq 'protoss.jpg'
+    end
+  end
 end

@@ -97,11 +97,11 @@ RSpec.describe Api::V1::PodcastsController, type: :controller do
       expect(returned_json).to be_kind_of(Hash)
       expect(returned_json).to_not be_kind_of(Array)
 
-      # expect(returned_json["podcast"]["collectionId"]).to eq '2'
-      # expect(returned_json["podcast"]["artistName"]).to eq 'Netflix'
-      # expect(returned_json["podcast"]["collectionName"]).to eq 'Bojack Horseman'
-      # expect(returned_json["podcast"]["artUrl"]).to eq 'willarnet.jpg'
-      # expect(returned_json["podcast"]["description"]).to eq 'This is Bojack Horseman'
+      expect(returned_json["podcasts"][1]["collectionId"]).to eq '2'
+      expect(returned_json["podcasts"][1]["artistName"]).to eq 'Netflix'
+      expect(returned_json["podcasts"][1]["collectionName"]).to eq 'Bojack Horseman'
+      expect(returned_json["podcasts"][1]["artUrl"]).to eq 'willarnet.jpg'
+      expect(returned_json["podcasts"][1]["description"]).to eq 'This is Bojack Horseman'
     end
   end
   describe "POST#destroy" do
