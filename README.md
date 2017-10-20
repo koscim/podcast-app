@@ -12,24 +12,24 @@ Built With:
 
 * Production & Development
 
-Ruby 2.4.1
-Rails 5.1.2
-React 15.6.1
-React-Router 3.0.5
-PostgreSQL
-React-player 0.22.0
+- Ruby 2.4.1
+- Rails 5.1.2
+- React 15.6.1
+- React-Router 3.0.5
+- PostgreSQL
+- React-player 0.22.0
 
 
 * Testing
 
-Rspec-Rails 3.5
-Capybara
-Capybara-screenshot
-Selenium-webdriver
-Chromedriver-helper
-Factory-girl-rails
-Shoulda
-Valid-attribute
-Enzyme 2.9.1
-Jasmine-Enzyme 3.4.0
-Karma 0.13.22
+- Rspec-Rails 3.5
+- Capybara
+- Capybara-screenshot
+- Selenium-webdriver
+- Chromedriver-helper
+- Factory-girl-rails
+- Shoulda
+- Valid-attribute
+- Enzyme 2.9.1
+- Jasmine-Enzyme 3.4.0
+- Karma 0.13.22
