@@ -34,7 +34,11 @@ Pod is an intelligent podcast player that automatically queues up episodes to fi
 - Jasmine-Enzyme 3.4.0
 - Karma 0.13.22
 
-## iTunes API
+## Internal API
+
+This application saves users, subscriptions, downtimes, podcasts, episodes, and user progress in episodes into a PostgreSQL database.
+
+## External iTunes API
 
 This application uses the Net::HTTP API Client to retrieve JSON responses from the iTunes API and XML responses from RSS Feeds.
 
