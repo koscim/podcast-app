@@ -33,3 +33,7 @@ Built With:
 - Enzyme 2.9.1
 - Jasmine-Enzyme 3.4.0
 - Karma 0.13.22
+
+## Selenium
+
+Selenium is used for automated end-to-end (e2e) browser testing.
