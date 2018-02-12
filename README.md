@@ -8,7 +8,7 @@ https://pod-podcast-app.herokuapp.com
 
 Pod is an intelligent podcast player that automatically queues up episodes to fit within your downtime and schedule. With pod, a user can schedule a downtime, such as a morning commute, the start and end time of it, the genre they would like to listen to, and the days of the week it occurs on and when the user logs into the app at that time, pod will queue up podcast episodes to fit within that duration and genre.
 
-Built With:
+# Built With:
 
 # Production & Development
 
@@ -33,6 +33,10 @@ Built With:
 - Enzyme 2.9.1
 - Jasmine-Enzyme 3.4.0
 - Karma 0.13.22
+
+## iTunes API
+
+This application uses the Net::HTTP API Client to retrieve JSON responses from the iTunes API and XML responses from RSS Feeds.
 
 ## Selenium
 
