@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   # resources :episodes, to: 'static_pages#index'
   # resources :users, to: 'static_pages#index'
   resources :downtimes, to: 'static_pages#index'
-
+  #
   namespace :api do
     namespace :v1 do
       resources :podcasts, only: [:index, :show, :destroy, :create] do
